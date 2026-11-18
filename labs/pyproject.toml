@@ -1,0 +1,13 @@
+[project]
+name = "lds-dmg-208-labs"
+version = "2027.1.0"
+description = "Lab kit of the SDAIA Academy course LDS-DMG-208"
+requires-python = ">=3.11"
+dependencies = [
+  "splink==5.0.0",
+  "duckdb>=2.0",
+  "pyyaml>=6.0",
+]
+
+[tool.uv]
+package = false

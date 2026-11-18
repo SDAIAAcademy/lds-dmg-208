@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="lab" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المختبر 2.1 · قائمة رموز وجدول مقابلة بإصدارين · إدارة البيانات الرئيسة والبيانات المرجعية</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="D2_1_codes.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div class="logo"></div><nav><a href="../index.html">صفحة المقرر</a><a href="../slides/day2.html#lab-2-1">العودة إلى الشرائح</a></nav></div>
+<span class="tag">المختبر 2.1</span>
+<h1>قائمة رموز وجدول مقابلة بإصدارين</h1>
+<p>تبني قائمتي المناطق والأنشطة من قائمة خارجية ومن مسودة فيها أخطاء، وتقابل 128 رمزًا من الأنظمة الثلاثة، وتصدر 1.0 ثم 1.1 بطلبي تغيير، وتخرج بالقائمتين وجدول المقابلة وسجل التغييرات</p>
+<div class="meta"><span>105 دقائق</span><span>اليوم 2</span><span>الجلسة 1: قوائم الرموز المرجعية وإصداراتها</span></div>
+</div>
+</header>
+<main class="wrap">
+<article class="lab" data-lab="2.1">
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
+  <ul>
+    <li>قائمتي رموز في مجلد <code>my_codes</code>: المناطق (من قائمة خارجية) وأنشطة الموردين (قائمة داخلية)، لكل رمز تعريف وحالة وتاريخ سريان، ولكل قائمة مالك ومشرف.</li>
+    <li>جدول مقابلة <code>my_codes/crosswalk.csv</code> يقابل كل رمز تستعمله الأنظمة الثلاثة برمز من القائمتين.</li>
+    <li>إصدارين محفوظين في <code>out/releases/1.0</code> و<code>out/releases/1.1</code>، وسجل تغييرات <code>my_codes/change_log.csv</code>.</li>
+  </ul>
+</div>
+
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/codes/iso_3166_2_sa.csv" download><b>codes/iso_3166_2_sa.csv</b><span>رموز المناطق الإدارية الثلاث عشرة في المعيار ISO 3166-2:SA.</span></a>
+  <a href="files/codes/activities_draft.csv" download><b>codes/activities_draft.csv</b><span>مسودة قائمة الأنشطة كما كتبها فريق المشتريات، وفيها أخطاء.</span></a>
+  <a href="files/codes/crosswalk_template.csv" download><b>codes/crosswalk_template.csv</b><span>كل رمز تستعمله الأنظمة الثلاثة، مع عدد سجلاته، وعمود فارغ للرمز المرجعي.</span></a>
+  <a href="files/codes/lists_template.csv" download><b>codes/lists_template.csv</b><span>بطاقة القائمتين: النوع والمصدر والمالك والمشرف والإصدار.</span></a>
+  <a href="files/codes/change_log_template.csv" download><b>codes/change_log_template.csv</b><span>أعمدة سجل التغييرات.</span></a>
+  <a href="files/codes/change_requests.txt" download><b>codes/change_requests.txt</b><span>طلبا التغيير CR-02 وCR-03 وقرار المالك.</span></a>
+</div>
+<p>تعمل بـ uv أو بالدفتر المعد (القسم 2.1). تحرر الملفات بجدول بيانات وتحفظها بصيغة CSV (UTF-8)، أو بمحرر نصوص.</p>
+<div class="callout warn"><b>دون أي أداة ذكاء اصطناعي في هذا المختبر.</b> اختيار الرمز وتعريفه قرار ملكية تكتبه أنت وتدافع عنه.</div>
+
+<h2>الخطوات</h2>
+
+<div class="step">
+  <h3>1 · وصف الرموز <span class="min">10 د</span></h3>
+  <p>شغّل وصف الرموز واقرأ ما تستعمله الأنظمة الثلاثة للمنطقة والنشاط. أين يكتب نظام رمزًا، وآخر رقمًا، وثالث نصًا حرًا؟ أي رمز لا تفهمه؟</p>
+  <pre class="code"><code>uv run kit/codes.py profile</code></pre>
+</div>
+
+<div class="step">
+  <h3>2 · قائمة المناطق <span class="min">15 د</span></h3>
+  <p>أنشئ مجلد <code>my_codes</code>. انسخ إليه <code>lists_template.csv</code> باسم <code>lists.csv</code> و<code>change_log_template.csv</code> باسم <code>change_log.csv</code>. ابنِ <code>regions.csv</code> بأعمدة مسودة الأنشطة نفسها، من رموز المعيار كما هي: لا تخترع رمزًا لمنطقة لها رمز في المعيار. املأ سطر المناطق في <code>lists.csv</code>: قائمة خارجية، ومصدرها، ومن يتابعها في الجامعة.</p>
+</div>
+
+<div class="step">
+  <h3>3 · مسودة الأنشطة <span class="min">20 د</span></h3>
+  <p>انسخ <code>activities_draft.csv</code> إلى <code>my_codes/activities.csv</code>. أصلح: كل رمز بلا تعريف، وكل رمز أبوه لا يوافق بادئته، وكل اسم مكرر لرمزين نشطين. اكتب التعريف بحيث يعرف المشرف منه أين يضع موردًا جديدًا. املأ سطر الأنشطة في <code>lists.csv</code>: قائمة داخلية، ومالكها.</p>
+</div>
+
+<div class="step">
+  <h3>4 · جدول المقابلة <span class="min">20 د</span></h3>
+  <p>انسخ <code>crosswalk_template.csv</code> إلى <code>my_codes/crosswalk.csv</code>، واكتب لكل سطر الرمز المرجعي في <code>reference_code</code>. ابدأ بالسطور الأكثر سجلات. انتبه إلى الرقم الذي يعني منطقة في نظام ويعني أخرى في المعيار، وإلى أسماء المدن في حقل المنطقة. إن قابل رمز مصدر رمزين مرجعيين فاكتبهما بينهما <code>|</code> واكتب في <code>rule_note</code> من يقرر وكيف.</p>
+</div>
+
+<div class="step">
+  <h3>5 · الفحص والإصدار 1.0 <span class="min">10 د</span></h3>
+  <p>شغّل الفحص، وأصلح ما يقوله واحدًا بعد آخر حتى يقول إن كل السجلات مغطاة ولا مشكلة. اكتب سطر الإصدار في <code>change_log.csv</code>، ثم أصدر 1.0.</p>
+  <pre class="code"><code>uv run kit/codes.py check my_codes
+uv run kit/codes.py release my_codes 1.0</code></pre>
+</div>
+
+<div class="step">
+  <h3>6 · طلبا التغيير والإصدار 1.1 <span class="min">20 د</span></h3>
+  <p>اقرأ <code>change_requests.txt</code> ونفّذ الطلبين في <code>my_codes</code>: الرمز الذي يتوقف لا يُحذف، بل تُكتب له نهاية صلاحية وحالة <code>retired</code>. حدّث جدول المقابلة لكل رمز مصدر تغيّر رمزه المرجعي. اكتب سطرًا لكل تغيير في سجل التغييرات، ثم افحص وأصدر 1.1.</p>
+  <pre class="code"><code>uv run kit/codes.py check my_codes
+uv run kit/codes.py release my_codes 1.1</code></pre>
+</div>
+
+<div class="step">
+  <h3>7 · الفرق والأثر <span class="min">10 د</span></h3>
+  <p>اقرأ الفرق بين الإصدارين، ثم الأثر: كم سجلًا يتغير رمزه؟ كم منها يحسمه نظام آخر يعرف الفرق، وكم يبقى لمشرف؟ اكتب العدد في عمود <code>records_affected</code> لسطر التغيير.</p>
+  <pre class="code"><code>uv run kit/codes.py diff 1.0 1.1
+uv run kit/codes.py impact my_codes</code></pre>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>إن نُشرت قائمة وطنية للمناطق برموز غير رموز المعيار الدولي، فماذا يتغير في قائمتك وجدول المقابلة؟ اكتب طلب التغيير بصيغة <code>change_requests.txt</code>.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>لماذا تتبع قائمة المناطق مصدرًا خارجيًا وتملك الجامعة قائمة الأنشطة؟ ومن يغيّر كلًا منهما؟</li>
+  <li>أي رمز مصدر قابل رمزين مرجعيين في الإصدار 1.1، ومن يحسم كل سجل عليه؟</li>
+  <li>لماذا لا يُحذف الرمز الذي توقف؟ ماذا يحدث لتقرير العام الماضي لو حُذف؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/codes/v1.0</code> و<code>v1.1</code>، والأرقام في <code>solutions/answer_key.md</code>. التحقق: <code>uv run solutions/check.py 2.1</code>.</li>
+    <li>الخطوة 4 أثقل الخطوات (128 سطرًا، منها 61 سطر منطقة واضحة). من لم يكمل عند انتهاء دقائقها العشرين يأخذ سطور المناطق من <code>solutions/reference/codes/v1.0/crosswalk.csv</code> ويكمل سطور الأنشطة بنفسه.</li>
+    <li>الإصدار 1.1 فيه 13 منطقة و21 رمز نشاط نشطًا. الفحص على المسودة كما هي (مع قائمة مناطق صحيحة) يعطي 8 مشكلات.</li>
+    <li>الأثر: 1,125 سجلًا في النظام المالي على الرمز A-310 الذي صار رمزين؛ 774 منها يحسمها رمز البوابة للمورد نفسه، و351 تبقى لمشرفة بيانات الأعمال. ست منها في قائمة الإشراف في المختبر 2.2.</li>
+    <li>الفخاخ: البوابة ترقم عسير 13 والمعيار يعطيها SA-14 (والرقم 13 ليس SA-13)؛ الرمز القديم DMM للشرقية في النظام المالي إلى جانب EST؛ أسماء مدن (جدة، الدمام، أبها) في حقل المنطقة في سجل المشاريع؛ حذف الرمز المقسوم بدل إيقافه.</li>
+  </ul>
+</details>
+</article>
+<nav class="pager"><a href="D1_2_golden.html" rel="prev">→ المختبر السابق</a><a href="D2_2_queue.html" rel="next">المختبر التالي ←</a></nav>
+</main>
+<footer><div class="wrap">أكاديمية سدايا · مسار التنفيذيين والقادة · إدارة البيانات الرئيسة والبيانات المرجعية<br><span class="muted">إصدار المقرر 2027.1.0 · المحرّك 1.0.0 · بُني في ⁦2026-11-18⁩ · الإيداع 986206f</span></div></footer>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-18T02:12:01Z","version":"2027.1.0","commit":"986206f"},"course":{"id":"lds-dmg-208","code":"LDS-DMG-208","title":"إدارة البيانات الرئيسة والبيانات المرجعية","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-208/","repo":"SDAIAAcademy/lds-dmg-208","home":"../index.html"},"lab":{"id":"2.1","title":"قائمة رموز وجدول مقابلة بإصدارين","summary":"تبني قائمتي المناطق والأنشطة من قائمة خارجية ومن مسودة فيها أخطاء، وتقابل 128 رمزًا من الأنظمة الثلاثة، وتصدر 1.0 ثم 1.1 بطلبي تغيير، وتخرج بالقائمتين وجدول المقابلة وسجل التغييرات","minutes":105,"day":2,"unit":"اليوم 2","session":1,"deck":"../slides/day2.html#lab-2-1","prev":"D1_2_golden.html","next":"D2_2_queue.html","alt":{}},"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":null,"llms":"../llms.txt"},"tasks":[],"tools":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

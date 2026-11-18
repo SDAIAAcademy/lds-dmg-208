@@ -1,0 +1,129 @@
+﻿system,code_type,source_code,reference_code,kind
+FIN,region,ASR,SA-14,1:1
+FIN,region,BHA,SA-11,1:1
+FIN,region,DMM,SA-04,1:1
+FIN,region,EST,SA-04,1:1
+FIN,region,HAL,SA-06,1:1
+FIN,region,JWF,SA-12,1:1
+FIN,region,JZN,SA-09,1:1
+FIN,region,MDN,SA-03,1:1
+FIN,region,MKH,SA-02,1:1
+FIN,region,NBR,SA-08,1:1
+FIN,region,NJR,SA-10,1:1
+FIN,region,QSM,SA-05,1:1
+FIN,region,RYD,SA-01,1:1
+FIN,region,TBK,SA-07,1:1
+MCP,region,1,SA-01,1:1
+MCP,region,10,SA-10,1:1
+MCP,region,11,SA-11,1:1
+MCP,region,12,SA-12,1:1
+MCP,region,13,SA-14,1:1
+MCP,region,2,SA-02,1:1
+MCP,region,3,SA-03,1:1
+MCP,region,4,SA-04,1:1
+MCP,region,5,SA-05,1:1
+MCP,region,6,SA-06,1:1
+MCP,region,7,SA-07,1:1
+MCP,region,8,SA-08,1:1
+MCP,region,9,SA-09,1:1
+PMC,region,Al Jouf,SA-12,text
+PMC,region,Asir,SA-14,text
+PMC,region,Baha,SA-11,text
+PMC,region,Eastern Province,SA-04,text
+PMC,region,Hail,SA-06,text
+PMC,region,Jizan,SA-09,text
+PMC,region,Madinah,SA-03,text
+PMC,region,Makkah,SA-02,text
+PMC,region,Medina,SA-03,text
+PMC,region,Najran,SA-10,text
+PMC,region,Northern Borders,SA-08,text
+PMC,region,Qassim,SA-05,text
+PMC,region,RIYADH,SA-01,text
+PMC,region,Riyadh,SA-01,text
+PMC,region,Tabuk,SA-07,text
+PMC,region,أبها,SA-14,text
+PMC,region,الباحة,SA-11,text
+PMC,region,الجوف,SA-12,text
+PMC,region,الحدود الشمالية,SA-08,text
+PMC,region,الدمام,SA-04,text
+PMC,region,الرياض,SA-01,text
+PMC,region,الشرقية,SA-04,text
+PMC,region,القصيم,SA-05,text
+PMC,region,المدينة المنورة,SA-03,text
+PMC,region,المنطقة الشرقية,SA-04,text
+PMC,region,تبوك,SA-07,text
+PMC,region,جازان,SA-09,text
+PMC,region,جدة,SA-02,text
+PMC,region,حائل,SA-06,text
+PMC,region,عسير,SA-14,text
+PMC,region,مكة المكرمة,SA-02,text
+PMC,region,منطقة الرياض,SA-01,text
+PMC,region,منطقة مكة,SA-02,text
+PMC,region,نجران,SA-10,text
+FIN,activity,A-100,GD-GEN,1:1
+FIN,activity,A-130,GD-FUR,1:1
+FIN,activity,A-140,GD-PRN,1:1
+FIN,activity,A-150,GD-CHM,1:1
+FIN,activity,A-310,GD-MED-CON|GD-MED-DEV,split: steward decides per supplier
+FIN,activity,A-320,SV-MED,1:1
+FIN,activity,A-330,GD-PHA,1:1
+FIN,activity,A-340,GD-LAB,1:1
+FIN,activity,A-410,GD-ICT,1:1
+FIN,activity,A-510,SV-CLN,1:1
+FIN,activity,A-520,SV-CAT,1:1
+FIN,activity,A-530,SV-SEC,1:1
+FIN,activity,A-540,SV-TRN,1:1
+FIN,activity,A-550,SV-TRV,1:1
+FIN,activity,A-610,WK-CON,1:1
+FIN,activity,A-620,SV-OM,1:1
+FIN,activity,A-621,SV-OM,1:1
+FIN,activity,A-630,SV-ENG,1:1
+MCP,activity,CHEM,GD-CHM,1:1
+MCP,activity,CIVIL,WK-CON,1:1
+MCP,activity,CLEAN,SV-CLN,1:1
+MCP,activity,CONSULT,SV-ENG,1:1
+MCP,activity,FM,SV-OM,1:1
+MCP,activity,FOOD,SV-CAT,1:1
+MCP,activity,FURN,GD-FUR,1:1
+MCP,activity,GENTRD,GD-GEN,1:1
+MCP,activity,IT,GD-ICT,1:1
+MCP,activity,LABEQ,GD-LAB,1:1
+MCP,activity,LOGI,SV-TRN,1:1
+MCP,activity,MEDCONS,GD-MED-CON,1:1
+MCP,activity,MEDEQP,GD-MED-DEV,1:1
+MCP,activity,MEDSRV,SV-MED,1:1
+MCP,activity,PHARM,GD-PHA,1:1
+MCP,activity,PRINT,GD-PRN,1:1
+MCP,activity,SEC,SV-SEC,1:1
+MCP,activity,TRAVEL,SV-TRV,1:1
+PMC,activity,Catering,SV-CAT,1:1
+PMC,activity,Chemicals,GD-CHM,1:1
+PMC,activity,Civil Works,WK-CON,1:1
+PMC,activity,Cleaning,SV-CLN,1:1
+PMC,activity,Consultancy,SV-ENG,1:1
+PMC,activity,Furniture,GD-FUR,1:1
+PMC,activity,IT,GD-ICT,1:1
+PMC,activity,O&M,SV-OM,1:1
+PMC,activity,Safety,SV-SEC,1:1
+PMC,activity,Supplies,GD-GEN,1:1
+PMC,activity,Transport,SV-TRN,1:1
+PMC,activity,أثاث,GD-FUR,1:1
+PMC,activity,أجهزة طبية,GD-MED-DEV,1:1
+PMC,activity,أدوية,GD-PHA,1:1
+PMC,activity,أمن وسلامة,SV-SEC,1:1
+PMC,activity,إعاشة,SV-CAT,1:1
+PMC,activity,استشارات هندسية,SV-ENG,1:1
+PMC,activity,تشغيل وصيانة,SV-OM,1:1
+PMC,activity,تقنية معلومات,GD-ICT,1:1
+PMC,activity,توريدات,GD-GEN,1:1
+PMC,activity,خدمات طبية,SV-MED,1:1
+PMC,activity,سفر,SV-TRV,1:1
+PMC,activity,صيانة,SV-OM,1:1
+PMC,activity,كيماويات,GD-CHM,1:1
+PMC,activity,مختبرات,GD-LAB,1:1
+PMC,activity,مستلزمات طبية,GD-MED-CON,1:1
+PMC,activity,مطبوعات,GD-PRN,1:1
+PMC,activity,مقاولات,WK-CON,1:1
+PMC,activity,مقاولات عامة,WK-CON,1:1
+PMC,activity,نظافة,SV-CLN,1:1
+PMC,activity,نقل,SV-TRN,1:1

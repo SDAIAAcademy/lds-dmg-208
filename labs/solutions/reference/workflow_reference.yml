@@ -1,0 +1,31 @@
+# Stewardship workflow: a reference solution of lab 2.2 (one defensible design).
+
+roles:
+  business_steward: جود الدعيليج، مشرفة بيانات الأعمال
+  technical_steward: يزيد العقيلي، المشرف الفني
+  data_owner: مشعل الزنيدي، مدير المشتريات
+  medical_city: نوف المزروع، مشتريات المدينة الطبية
+
+routes:
+  - when: {case_type: code}
+    decides: business_steward
+    approves: data_owner
+    sla_days: 10
+  - when: {case_type: match, reason: registration numbers differ}
+    decides: technical_steward
+    approves: business_steward
+    sla_days: 5
+  - when: {case_type: match}
+    decides: business_steward
+    sla_days: 5
+
+escalation:
+  after_days: 4
+  to: data_owner
+
+indicators:
+  - {name: "عمر أقدم حالة مفتوحة في القائمة", target: "لا يتجاوز 10 أيام عمل"}
+  - {name: "نسبة الحالات المحسومة ضمن مستوى الخدمة", target: "90% فأكثر كل شهر"}
+  - {name: "الدمج الخاطئ المكتشف في مراجعة عينة شهرية من 50 سجلًا ذهبيًا", target: "صفر، وكل حالة تُحلل"}
+  - {name: "نسبة اقتراحات النموذج التي يرفضها المشرف", target: "تُراقب ولا يُطلب خفضها؛ ارتفاعها المفاجئ يستدعي مراجعة النموذج"}
+  - {name: "عدد طلبات تغيير الرموز ومتوسط مدة حسمها", target: "يُنشر في سجل التغييرات كل ربع"}

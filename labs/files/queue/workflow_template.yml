@@ -1,0 +1,20 @@
+# مسار الإشراف: ملف البداية في المختبر 2.2. انسخه إلى my_workflow.yml وأكمله.
+# اختبره على الحالات العشرين:  uv run kit/steward.py test my_workflow.yml
+
+roles:                       # مفتاح الدور: اسم من يشغله في الحالة
+  business_steward: ""
+  technical_steward: ""
+  data_owner: ""
+
+routes:                      # أول مسار تتحقق كل شروطه هو الذي يحدد من يعمل على الحالة
+  - when: {case_type: match}
+    decides: business_steward
+    approves: ""             # دور، أو اتركه فارغًا
+    sla_days:                # أيام العمل من دخول الحالة القائمة
+
+escalation:
+  after_days:                # الحالة التي تبقى مفتوحة بعد هذا العدد من الأيام تُرفع إلى:
+  to: ""
+
+indicators:                  # أربعة على الأقل، لكل منها هدف
+  - {name: "", target: ""}

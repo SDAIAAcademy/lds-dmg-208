@@ -1,0 +1,21 @@
+﻿code,name_ar,name_en,definition,parent,valid_from,valid_to,status
+GD,سلع,Goods,مجموعة سلع,,2027-01-01,,active
+SV,خدمات,Services,مجموعة خدمات,,2027-01-01,,active
+WK,أشغال,Works,مجموعة أشغال,,2027-01-01,,active
+GD-GEN,توريدات عامة,General supplies,سلع متنوعة لا تقع في فئة أخرى من فئات السلع في هذه القائمة,GD,2027-01-01,,active
+GD-MED,مستلزمات وأجهزة طبية,Medical supplies and equipment,مواد طبية مستهلكة وأجهزة طبية معمرة,GD,2027-01-01,,active
+GD-PHA,أدوية,Pharmaceuticals,مستحضرات دوائية مسجلة تُصرف في المدينة الطبية,GD,2027-01-01,,active
+GD-LAB,أجهزة ومستلزمات مخبرية,Laboratory equipment and supplies,أجهزة المختبرات البحثية والتعليمية ومستلزماتها غير الكيميائية,GD,2027-01-01,,active
+GD-ICT,حاسبات وتقنية معلومات,Computers and IT,أجهزة الحاسب والشبكات والبرمجيات الجاهزة وملحقاتها,GD,2027-01-01,,active
+GD-FUR,أثاث مكتبي,Office furniture,أثاث المكاتب والقاعات والمعامل,GD,2027-01-01,,active
+GD-PRN,مطبوعات وقرطاسية,Printing and stationery,المطبوعات والقرطاسية ولوازم المكاتب المستهلكة,GD,2027-01-01,,active
+GD-CHM,مواد كيميائية,Chemicals,مواد كيميائية للمختبرات والتشغيل، ولها اشتراطات تخزين ونقل,GD,2027-01-01,,active
+SV-MED,خدمات طبية,Medical services,خدمات سريرية أو تشخيصية يقدمها مورد في المدينة الطبية,SV,2027-01-01,,active
+SV-OM,تشغيل وصيانة,Operation and maintenance,تشغيل المرافق وصيانة المباني والأجهزة بعقود دورية,SV,2027-01-01,,active
+SV-CAT,تموين وإعاشة,Catering,إعداد الوجبات وتقديمها للطلاب والمرضى والموظفين,SV,2027-01-01,,active
+SV-CLN,نظافة,Cleaning,نظافة المباني والمرافق والتخلص من النفايات غير الطبية,SV,2027-01-01,,active
+SV-ENG,استشارات هندسية,Engineering consultancy,تصميم المشاريع والإشراف عليها ودراساتها,SV,2027-01-01,,active
+SV-SEC,أمن وسلامة,Security and safety,الحراسة وأنظمة السلامة والإطفاء وصيانتها,SV,2027-01-01,,active
+SV-TRN,نقل,Transport,نقل الأفراد والبضائع بعقود,SV,2027-01-01,,active
+SV-TRV,سفر وسياحة,Travel,حجوزات السفر والإقامة للمهمات والمؤتمرات,SV,2027-01-01,,active
+WK-CON,مقاولات إنشائية,Construction works,تشييد المباني والطرق والبنية التحتية وترميمها,WK,2027-01-01,,active

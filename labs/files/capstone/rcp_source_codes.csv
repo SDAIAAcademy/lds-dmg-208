@@ -1,0 +1,24 @@
+﻿system,code_type,source_code,records
+RCP,activity,Chemicals,212
+RCP,activity,Consumables,283
+RCP,activity,Courier,242
+RCP,activity,Furniture,222
+RCP,activity,General,252
+RCP,activity,IT equipment,282
+RCP,activity,Lab supplies,219
+RCP,activity,Printing,222
+RCP,activity,Research equipment,231
+RCP,activity,Travel,235
+RCP,region,ABT,38
+RCP,region,AHB,118
+RCP,region,AJF,25
+RCP,region,DMM,458
+RCP,region,EAM,31
+RCP,region,ELQ,89
+RCP,region,GIZ,40
+RCP,region,HAS,39
+RCP,region,JED,595
+RCP,region,MED,167
+RCP,region,RAE,22
+RCP,region,RUH,725
+RCP,region,TUU,53

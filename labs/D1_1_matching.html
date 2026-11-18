@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="lab" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المختبر 1.1 · ضبط قواعد المطابقة على 500 زوج موسوم · إدارة البيانات الرئيسة والبيانات المرجعية</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="D1_1_matching.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div class="logo"></div><nav><a href="../index.html">صفحة المقرر</a><a href="../slides/day1.html#lab-1-1">العودة إلى الشرائح</a></nav></div>
+<span class="tag">المختبر 1.1</span>
+<h1>ضبط قواعد المطابقة على 500 زوج موسوم</h1>
+<p>تبدأ من ملف قواعد ضعيف على 20,000 سجل مورد، فتضيف توحيد الأسماء والمفتاح العابر للغتين والتكتيل والقواعد الحتمية وقاعدة الحجز، وتخرج بملف قواعد وجدول لجودة المطابقة عند عتبتين بحسب نظام الكتابة</p>
+<div class="meta"><span>105 دقائق</span><span>اليوم 1</span><span>الجلسة 1: أنماط التنفيذ وقواعد المطابقة</span></div>
+</div>
+</header>
+<main class="wrap">
+<article class="lab" data-lab="1.1">
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
+  <ul>
+    <li>ملف قواعد مطابقة <code>my_rules.yml</code> تعرف ما يفعله كل سطر فيه.</li>
+    <li>جدول جودة المطابقة <code>out/match_quality.csv</code>: الدقة والاستدعاء عند عتبتين، لكل نظام كتابة (عربي مع عربي، وإنجليزي مع إنجليزي، وعربي مع إنجليزي).</li>
+    <li>سجل التشغيل <code>out/run_log.jsonl</code>، وهو جزء مما يُسلَّم.</li>
+  </ul>
+</div>
+
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/matching/records.csv" download><b>matching/records.csv</b><span>20,000 سجل مورد من الأنظمة الثلاثة.</span></a>
+  <a href="files/matching/labelled_pairs.csv" download><b>matching/labelled_pairs.csv</b><span>500 زوج حكم عليها المشرفون: مطابق (1) أو غير مطابق (0).</span></a>
+  <a href="files/matching/rules_start.yml" download><b>matching/rules_start.yml</b><span>ملف القواعد في نقطة البداية، وفي تعليقاته شرح كل خيار.</span></a>
+  <a href="files/case_brief.txt" download><b>case_brief.txt</b><span>موجز الحالة وسجل التصنيف وسياسة الذكاء الاصطناعي.</span></a>
+</div>
+<p>تعمل من مجلد <code>labs</code> على حاسوبك بـ uv، أو في Google Colab بالدفتر المعد <code>notebook.ipynb</code> (القسم 1.1). لا تكتب برمجة: تغيّر ملف القواعد وتعيد التشغيل. كل تشغيل يستغرق نحو عشر ثوانٍ على حاسوب محمول.</p>
+<div class="callout tip"><b>مساعد الذكاء الاصطناعي مرشد فقط.</b> اسأله عن معنى خيار أو عن سبب انخفاض رقم، ولا تلصق فيه أي صف من الملفات.</div>
+
+<h2>الخطوات</h2>
+
+<div class="step">
+  <h3>1 · نقطة البداية <span class="min">10 د</span></h3>
+  <p>انسخ <code>files/matching/rules_start.yml</code> إلى <code>my_rules.yml</code> في مجلد <code>labs</code>، ثم شغّله واقرأ الجدول: كم زوجًا قورن؟ وكم «تطابقًا حتميًا»؟ وأين أضعف استدعاء؟</p>
+  <pre class="code"><code>uv run kit/match.py my_rules.yml</code></pre>
+</div>
+
+<div class="step">
+  <h3>2 · الكتابة العربية <span class="min">20 د</span></h3>
+  <p>شغّل خيارات <code>arabic</code> الخمسة واحدًا بعد آخر، وأعد التشغيل بعد كل خيار. سجّل في ورقة جانبية أثر كل خيار على استدعاء <code>ar-ar</code>. أي خيار أعطى أكبر قفزة، ولماذا في رأيك؟</p>
+</div>
+
+<div class="step">
+  <h3>3 · الأسماء اللاتينية والأشكال القانونية <span class="min">15 د</span></h3>
+  <p>شغّل <code>unify_article</code> و<code>strip_punctuation</code>، ثم اكتب في <code>remove_words</code> الكلمات التي لا تميّز موردًا من آخر: الأشكال القانونية بالعربية والإنجليزية (شركة، مؤسسة، المحدودة، co، est، llc ...). لا تحذف كلمة النشاط بعد.</p>
+</div>
+
+<div class="step">
+  <h3>4 · المفتاح العابر للغتين والتكتيل <span class="min">20 د</span></h3>
+  <p>شغّل <code>cross_script_key</code>، واكتب في <code>key_remove_words</code> كلمات النشاط بالعربية والإنجليزية (للتجارة، trading ...): تُحذف من المفتاح وحده وتبقى في الاسم. أضف إلى <code>blocking</code> السطرين <code>[name_key]</code> و<code>[alt_key]</code>، واجعل <code>name_key: true</code> و<code>city: key</code>. كيف تغيّر عدد الأزواج المقارنة؟ وماذا حدث لاستدعاء <code>ar-en</code>؟</p>
+</div>
+
+<div class="step">
+  <h3>5 · الأرقام والقيم البديلة وقاعدة الحجز <span class="min">15 د</span></h3>
+  <p>افتح <code>records.csv</code> وابحث عن أكثر رقم سجل تكرارًا. ثم شغّل <code>digits_only</code> و<code>phone_local</code>، واكتب القيمة البديلة في <code>placeholders</code>. انظر إلى عدد «التطابقات الحتمية» قبل وبعد. أخيرًا قرر: هل يكفي رقم السجل وحده قاعدة حتمية؟ أضف إلى <code>blocking</code> سطري <code>[phone]</code> و<code>[email]</code>، وإلى <code>hold_back</code> ما يمنع الدمج الآلي لسجلين يختلف رقما سجلهما.</p>
+</div>
+
+<div class="step">
+  <h3>6 · العتبتان وجدول الجودة <span class="min">15 د</span></h3>
+  <p>العتبة الأعلى للدمج الآلي، والأدنى لبداية قائمة المراجعة. جرّب زوجين أو ثلاثة من القيم، واختر ما تدافع عنه أمام المالك: كم خطأ دمج تقبل؟ وكم زوجًا يستطيع المشرفون مراجعته؟ احفظ <code>out/match_quality.csv</code> كما هو.</p>
+</div>
+
+<div class="step">
+  <h3>7 · لوحة العناقيد <span class="min">10 د</span></h3>
+  <p>شغّل مرة أخيرة مع اللوحة، وافتح <code>out/cluster_studio.html</code> في المتصفح. اختر عنقودين كبيرين، وسجّل في سطرين أي سجلين ما كان ينبغي أن يجتمعا، ولماذا جمعتهما القواعد.</p>
+  <pre class="code"><code>uv run kit/match.py my_rules.yml --dashboard</code></pre>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>جرّب عتبتين أخريين، وقدّر كم زوجًا ينتقل بين الدمج الآلي وقائمة المراجعة. ماذا يعني الفرق لعمل المشرفين في أسبوع؟</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>ما الخيار الذي رفع استدعاء الأزواج العربية الإنجليزية أكثر من غيره، ولماذا لا يرفعه توحيد الكتابة العربية؟</li>
+  <li>لماذا ارتفع عدد التطابقات الحتمية في ملف البداية إلى عشرات الآلاف، وما الذي أصلحه؟</li>
+  <li>لماذا يختلف الرقمان عند العتبتين في ملفك ويتساويان تقريبًا في ملف البداية؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/rules_reference.yml</code>، والتسلسل والأرقام في <code>solutions/answer_key.md</code>. التحقق: <code>uv run solutions/check.py 1.1</code>.</li>
+    <li>البداية: الدقة 81.6% والاستدعاء 42.7% عند 0.5؛ و40,403 تطابقات حتمية سببها 272 سجلًا في سجل المشاريع رقمها 0000000000. المرجع عند 0.95: الدقة 97.3% والاستدعاء 96.9%، وفي قائمة المراجعة 699 زوجًا.</li>
+    <li>الفخاخ: حذف كلمات النشاط من الاسم نفسه (فتتطابق الشركات الشقيقة)؛ الاكتفاء برقم السجل قاعدة حتمية؛ عتبة دمج منخفضة لأن الدقة على 500 زوج تبدو جيدة.</li>
+    <li>الشركات الشقيقة تشترك في الهاتف والبريد والاسم التجاري وتختلف في النشاط ورقم السجل: قاعدة الحجز ترسلها إلى المراجعة بدل الدمج.</li>
+    <li>إن فشل تثبيت Splink على حاسوب فليعمل المشارك في Colab بالدفتر نفسه.</li>
+  </ul>
+</details>
+</article>
+<nav class="pager"><span></span><a href="D1_2_golden.html" rel="next">المختبر التالي ←</a></nav>
+</main>
+<footer><div class="wrap">أكاديمية سدايا · مسار التنفيذيين والقادة · إدارة البيانات الرئيسة والبيانات المرجعية<br><span class="muted">إصدار المقرر 2027.1.0 · المحرّك 1.0.0 · بُني في ⁦2026-11-18⁩ · الإيداع 986206f</span></div></footer>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-18T02:12:01Z","version":"2027.1.0","commit":"986206f"},"course":{"id":"lds-dmg-208","code":"LDS-DMG-208","title":"إدارة البيانات الرئيسة والبيانات المرجعية","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-208/","repo":"SDAIAAcademy/lds-dmg-208","home":"../index.html"},"lab":{"id":"1.1","title":"ضبط قواعد المطابقة على 500 زوج موسوم","summary":"تبدأ من ملف قواعد ضعيف على 20,000 سجل مورد، فتضيف توحيد الأسماء والمفتاح العابر للغتين والتكتيل والقواعد الحتمية وقاعدة الحجز، وتخرج بملف قواعد وجدول لجودة المطابقة عند عتبتين بحسب نظام الكتابة","minutes":105,"day":1,"unit":"اليوم 1","session":1,"deck":"../slides/day1.html#lab-1-1","prev":null,"next":"D1_2_golden.html","alt":{}},"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":null,"llms":"../llms.txt"},"tasks":[],"tools":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

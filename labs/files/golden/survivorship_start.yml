@@ -1,0 +1,14 @@
+# قواعد الاستبقاء: ملف البداية في المختبر 1.2. انسخه إلى my_survivorship.yml وغيّر النسخة.
+# القواعد: source_priority (مع order)، وmost_recent (مع ignore_dates_from)، وmost_frequent (والتعادل يحسمه order).
+# التشغيل:  uv run kit/golden.py my_survivorship.yml
+
+placeholders: []             # أرقام سجل تعني «غير معروف»
+
+attributes:
+  name_ar:    {rule: source_priority, order: [FIN, MCP, PMC]}
+  name_en:    {rule: source_priority, order: [FIN, MCP, PMC]}
+  cr_number:  {rule: source_priority, order: [FIN, MCP, PMC]}
+  vat_number: {rule: source_priority, order: [FIN, MCP, PMC]}
+  city:       {rule: source_priority, order: [FIN, MCP, PMC]}
+  phone:      {rule: source_priority, order: [FIN, MCP, PMC]}
+  email:      {rule: source_priority, order: [FIN, MCP, PMC]}

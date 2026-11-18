@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="lab" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المختبر 1.2 · السجلات الذهبية لثلاثة آلاف مورد · إدارة البيانات الرئيسة والبيانات المرجعية</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="D1_2_golden.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div class="logo"></div><nav><a href="../index.html">صفحة المقرر</a><a href="../slides/day1.html#lab-1-2">العودة إلى الشرائح</a></nav></div>
+<span class="tag">المختبر 1.2</span>
+<h1>السجلات الذهبية لثلاثة آلاف مورد</h1>
+<p>تكتب قواعد الاستبقاء لسبع سمات على عناقيد معتمدة ومصفوفة موثوقية، وتقيسها على 60 موردًا تحقق منهم المشرفون، وتخرج بجدول السجلات الذهبية ووثيقة قواعد راجعها زميل</p>
+<div class="meta"><span>105 دقائق</span><span>اليوم 1</span><span>الجلسة 2: السجلات الذهبية وقواعد الاستبقاء</span></div>
+</div>
+</header>
+<main class="wrap">
+<article class="lab" data-lab="1.2">
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
+  <ul>
+    <li>ملف قواعد استبقاء <code>my_survivorship.yml</code>: قاعدة لكل سمة من السمات السبع.</li>
+    <li>جدول السجلات الذهبية <code>out/golden_records.csv</code>، لكل قيمة فيه السجل الذي جاءت منه، وجدول الإسناد الترافقي <code>out/golden_xref.csv</code>، وتاريخ التغييرات <code>out/golden_history.csv</code>.</li>
+    <li>وثيقة قواعد من صفحة واحدة راجعها زميل.</li>
+  </ul>
+</div>
+
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/golden/cluster_records.csv" download><b>golden/cluster_records.csv</b><span>سجلات 3,000 مورد في عناقيد اعتمدها المشرفون.</span></a>
+  <a href="files/golden/trust_matrix.csv" download><b>golden/trust_matrix.csv</b><span>ترتيب موثوقية كل مصدر لكل سمة (1 الأوثق)، وسبب الترتيب.</span></a>
+  <a href="files/golden/steward_notes.txt" download><b>golden/steward_notes.txt</b><span>ما يعرفه المشرفون عن كل مصدر.</span></a>
+  <a href="files/golden/verified_sample.csv" download><b>golden/verified_sample.csv</b><span>60 موردًا تحقق منهم المشرفون هاتفيًا.</span></a>
+  <a href="files/golden/survivorship_start.yml" download><b>golden/survivorship_start.yml</b><span>قواعد البداية: المالية أولًا في كل شيء.</span></a>
+  <a href="files/golden/cities.csv" download><b>golden/cities.csv</b><span>اسم كل مدينة بالعربية والإنجليزية، تستعمله الأداة لتوحيد المدينة.</span></a>
+</div>
+<p>يبدأ هذا المختبر من عناقيد معتمدة، لا من ناتج المختبر 1.1. تعمل بـ uv أو بالدفتر المعد (القسم 1.2).</p>
+<div class="callout tip"><b>المساعد مرشد فقط.</b> اسأله عن الفرق بين القواعد، ولا تلصق فيه سجلات الموردين.</div>
+
+<h2>الخطوات</h2>
+
+<div class="step">
+  <h3>1 · الموثوقية والملاحظات <span class="min">10 د</span></h3>
+  <p>اقرأ مصفوفة الموثوقية وملاحظات المشرفين. اكتب لكل سمة جملة: من يكتب هذه القيمة في كل مصدر، ومن يتحقق منها؟</p>
+</div>
+
+<div class="step">
+  <h3>2 · قواعد البداية <span class="min">10 د</span></h3>
+  <p>انسخ <code>files/golden/survivorship_start.yml</code> إلى <code>my_survivorship.yml</code> وشغّله. اقرأ لكل سمة: كم صحيحًا من الستين، وكم خطأ، وكم عنقودًا تختلف فيه المصادر.</p>
+  <pre class="code"><code>uv run kit/golden.py my_survivorship.yml</code></pre>
+</div>
+
+<div class="step">
+  <h3>3 · قاعدة لكل سمة <span class="min">30 د</span></h3>
+  <p>لكل سمة اختر <code>source_priority</code> بترتيب تبرّره، أو <code>most_recent</code>، أو <code>most_frequent</code>. ابدأ بالسمات الأكثر خطأ. أعد التشغيل بعد كل تغيير، ولا تغيّر قاعدتين معًا.</p>
+</div>
+
+<div class="step">
+  <h3>4 · التواريخ والتعادل <span class="min">15 د</span></h3>
+  <p>افتح <code>cluster_records.csv</code> ورتّبه بعمود <code>last_updated</code> لكل مصدر. هل يقول التاريخ في كل مصدر متى غيّر المورد بياناته؟ استعمل <code>ignore_dates_from</code> لما لا يقوله، و<code>placeholders</code> للقيم البديلة، واكتب <code>order</code> يحسم التعادل.</p>
+</div>
+
+<div class="step">
+  <h3>5 · الإسناد الترافقي والتاريخ <span class="min">15 د</span></h3>
+  <p>أعد التشغيل. افتح <code>out/golden_records.csv</code>: من أي سجل جاءت مدينة المورد الأول؟ افتح <code>out/golden_xref.csv</code>: كم سجلًا مصدريًا خلف السجل الذهبي نفسه؟ افتح <code>out/golden_history.csv</code>: ما الذي غيّره آخر تشغيل؟</p>
+</div>
+
+<div class="step">
+  <h3>6 · وثيقة القواعد <span class="min">15 د</span></h3>
+  <p>اكتب صفحة واحدة: لكل سمة القاعدة، وسببها من المصفوفة أو الملاحظات، والرقم على الستين، وما تبقى خطأ ولماذا. أضف من يغيّر هذه القواعد ومتى.</p>
+</div>
+
+<div class="step">
+  <h3>7 · مراجعة زميل <span class="min">10 د</span></h3>
+  <p>تبادل الوثيقة مع زميل. يراجع كل منكما بثلاثة أسئلة: هل لكل سمة قاعدة وسبب؟ هل في القواعد تاريخ لا يدل على تحديث؟ هل يعرف المالك مصدر كل قيمة؟ اكتب اسم المراجع وملاحظاته في آخر الوثيقة.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب قاعدة لسمة لا تحملها ملفات المختبر، مثل رقم الحساب البنكي: من يملكها، ومن يغيّرها، ومن أي مصدر تؤخذ.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>أي سمة لم تتحسن مهما غيّرت القاعدة، ولماذا؟</li>
+  <li>في أي سمة تفوقت <code>most_recent</code> على ترتيب المصادر، وما الشرط الذي جعلها تعمل؟</li>
+  <li>لو أُضيف مصدر رابع غدًا، ما الذي تغيّره في ملفك؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/survivorship_reference.yml</code> و<code>solutions/answer_key.md</code>. التحقق: <code>uv run solutions/check.py 1.2</code>.</li>
+    <li>على الستين: البداية 346 قيمة صحيحة من 420؛ «الأحدث» مع الثقة بتواريخ سجل المشاريع 367؛ المرجع 379. المدينة 46 ثم 55 ثم 58، والهاتف 38 ثم 50 ثم 51، والاسم الإنجليزي 30 في البداية و39 في المرجع.</li>
+    <li>الفخ: كل سجلات المشاريع تحمل يوم النقل في <code>last_updated</code>، فتغلب «الأحدث» بها قيمة قديمة. ومن يكتفي بترتيب المالية أولًا يأخذ مدينة وهاتفًا قديمين لكل من انتقل.</li>
+    <li>ما يبقى خطأ في المرجع (اسم إنجليزي كتبه المورد بصيغة غير صيغة مستنداته، أو مورد انتقل ولا يعرف انتقاله إلا سجل قديم) يُحال إلى قائمة الإشراف، ولا تُصلحه قاعدة.</li>
+  </ul>
+</details>
+</article>
+<nav class="pager"><a href="D1_1_matching.html" rel="prev">→ المختبر السابق</a><a href="D2_1_codes.html" rel="next">المختبر التالي ←</a></nav>
+</main>
+<footer><div class="wrap">أكاديمية سدايا · مسار التنفيذيين والقادة · إدارة البيانات الرئيسة والبيانات المرجعية<br><span class="muted">إصدار المقرر 2027.1.0 · المحرّك 1.0.0 · بُني في ⁦2026-11-18⁩ · الإيداع 986206f</span></div></footer>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-18T02:12:01Z","version":"2027.1.0","commit":"986206f"},"course":{"id":"lds-dmg-208","code":"LDS-DMG-208","title":"إدارة البيانات الرئيسة والبيانات المرجعية","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-208/","repo":"SDAIAAcademy/lds-dmg-208","home":"../index.html"},"lab":{"id":"1.2","title":"السجلات الذهبية لثلاثة آلاف مورد","summary":"تكتب قواعد الاستبقاء لسبع سمات على عناقيد معتمدة ومصفوفة موثوقية، وتقيسها على 60 موردًا تحقق منهم المشرفون، وتخرج بجدول السجلات الذهبية ووثيقة قواعد راجعها زميل","minutes":105,"day":1,"unit":"اليوم 1","session":2,"deck":"../slides/day1.html#lab-1-2","prev":"D1_1_matching.html","next":"D2_1_codes.html","alt":{}},"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":null,"llms":"../llms.txt"},"tasks":[],"tools":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

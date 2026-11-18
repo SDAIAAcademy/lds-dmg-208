@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-ax="deck" data-track="executives">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اليوم 1 · من ثلاثة أنظمة إلى سجل واحد · إدارة البيانات الرئيسة والبيانات المرجعية</title>
+<meta name="generator" content="SDAIA Academy engine 1.0.0">
+<link rel="icon" href="../_engine/icon.svg">
+<link rel="alternate" type="text/markdown" href="day1.md">
+<link rel="describedby" href="../llms.txt">
+<link rel="stylesheet" href="../_engine/academy.css">
+</head>
+<body>
+<div class="deck" data-course="إدارة البيانات الرئيسة والبيانات المرجعية" data-track="executives" data-day="اليوم 1">
+<section class="slide title" id="title" data-auto="title" data-label="الترحيب" data-n="1">
+  <div class="kicker">أكاديمية سدايا · إدارة البيانات الرئيسة والبيانات المرجعية</div>
+  <h1>من ثلاثة أنظمة إلى سجل واحد</h1>
+  <p class="lead mt">اليوم 1: تختار نمط التنفيذ، وتضبط قواعد المطابقة وتقيسها، ثم تكوّن السجلات الذهبية</p>
+  <div class="meta"><span class="track">مسار التنفيذيين والقادة</span><span>يومان تدريبيان + يوم للمشروع الختامي</span><span>جلستان · مختبران</span><span>LDS-DMG-208</span></div>
+  <aside class="notes"><p>رحّب بالمشاركين، واسأل القاعة: كم موردًا تتعامل معه جهتك؟ ومن يعرف الرقم بثقة؟ غالبًا لا أحد. هذا سؤال اليوم.</p><p>اليوم جلستان، في كل منهما نحو 75 دقيقة للمفاهيم ونقاط التحقق، ثم مختبر من 105 دقائق. الاستراحات بمفتاح B.</p><p>الجلسة الأولى أكثف الجلسات، فوزّع دقائقها الخمس والسبعين: 5 للتأكد من الأداة، و10 للأنواع الثلاثة ومثال الجهة الشريكة، و25 لأنماط التنفيذ مع التمرين وتصويت المواقف الأربعة، و35 للمطابقة حتى نقطة التحقق. إن تأخرت فاختصر شرائح الكلمات التي لا تميّز والتكتيل إلى دقيقتين لكل منهما: المختبر يعود إليهما.</p></aside>
+</section>
+
+<section class="slide" id="agenda" data-auto="agenda" data-label="جدول اليوم" data-n="2">
+  <div class="kicker">اليوم</div>
+  <h2>من ثلاثة أنظمة إلى سجل واحد</h2>
+  <div class="agenda"><div class="item"><div><b>الجلسة 1 · أنماط التنفيذ وقواعد المطابقة</b><small>البيانات الرئيسة والمرجعية وأنماط التنفيذ الأربعة، ثم المطابقة: التوحيد والتكتيل والأسماء بالعربية والإنجليزية والعتبات</small></div></div><div class="item"><div><b>الجلسة 2 · السجلات الذهبية وقواعد الاستبقاء</b><small>قاعدة لكل سمة من موثوقية المصدر وحداثته واكتماله، مع الإسناد الترافقي وتاريخ القيم</small></div></div></div>
+</section>
+
+<section class="slide" id="setup-check" data-label="قبل أن نبدأ" data-n="3">
+  <div class="kicker">قبل أن نبدأ</div>
+  <h2>تأكد أن الأداة تعمل على حاسوبك أو في Colab</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>على الحاسوب</h4><p class="small mb0">ثبّت uv، ثم من مجلد <span class="ltr">labs</span> شغّل الأمر أدناه. يكفي أن يطبع جدولًا فيه أرقام.</p></div>
+    <div class="card c-cyan"><h4>في Google Colab</h4><p class="small mb0">افتح <span class="ltr">labs/notebook.ipynb</span> وشغّل خلية الإعداد ثم خلية القسم 1.1.</p></div>
+  </div>
+  <pre class="code"><code>cd labs
+uv run kit/match.py files/matching/rules_start.yml</code></pre>
+  <div class="callout note mt"><b>لا برمجة في المقرر.</b> تغيّر ملفات قواعد وجداول، وتشغّل أوامر جاهزة.</div>
+  <aside class="notes"><p>أول تشغيل ينزّل المكتبات (Splink وDuckDB) ويستغرق دقيقة أو دقيقتين، وكل تشغيل بعده نحو عشر ثوانٍ. من تعذر عليه التثبيت (جهاز مقيد الصلاحيات) يعمل في Colab بالدفتر نفسه.</p><p>لا تشرح الأرقام التي تظهر الآن: هي نقطة بداية المختبر 1.1.</p></aside>
+</section>
+
+<!-- الجلسة 1 -->
+
+<section class="slide section" id="s1" data-auto="section" data-session="1" data-n="4">
+  <div class="kicker">الجلسة 1</div>
+  <h1>أنماط التنفيذ وقواعد المطابقة</h1>
+  <ul class="bullets outcomes"><li>يميّز البيانات الرئيسة من المرجعية ومن بيانات المعاملات، ويختار نمط التنفيذ لموقف مؤسسي ويبرّره</li><li>يضبط توحيد الأسماء العربية والإنجليزية والتكتيل وقواعد المطابقة في ملف قواعد</li><li>يقيس الدقة والاستدعاء على أزواج موسومة عند عتبتين، مفصّلين بحسب نظام الكتابة</li></ul>
+  <div class="sess-no">01</div>
+</section>
+
+<section class="slide" id="recap-prereq" data-lo="LO1" data-n="5" data-session="1">
+  <div class="kicker">ما نبني عليه</div>
+  <h2>تعرف المجالات وتنميط الجداول: نبدأ من هناك</h2>
+  <ul class="bullets">
+    <li>مجالات إدارة البيانات ومنها البيانات الرئيسة والمرجعية: في <b>LDS-DMG-101</b></li>
+    <li>تنميط جدول للاكتمال والتكرار: في <b>LDS-DMG-203</b>، ونفترضه هنا</li>
+    <li>شبكة المشرفين وحقوق القرار عمومًا: في <b>LDS-DMG-201</b>، ونأخذ منها اليوم قائمة الإشراف وحدها</li>
+  </ul>
+  <div class="callout tip mt"><b>الجديد هنا.</b> أن تقيس المطابقة بأرقام، وتكوّن السجل الذهبي بقواعد، وتصدر قوائم الرموز بإصدارات.</div>
+  <aside class="notes"><p>شريحة تذكير فقط. إن لم يمر أحد بالتنميط فأحِله إلى المقرر 203 بعد الورشة؛ المختبرات لا تحتاج أكثر من قراءة جدول.</p></aside>
+</section>
+
+<section class="slide" id="three-kinds" data-lo="LO1" data-n="6" data-session="1">
+  <div class="kicker">ثلاثة أنواع</div>
+  <h2>المورد بيانات رئيسة، والمنطقة بيانات مرجعية، والفاتورة معاملة</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>بيانات رئيسة</h4><p class="small mb0">الكيانات التي تتكرر في كل عملية: المورد، والطالب، والمريض، والأصل. قليلة التغير، كثيرة الاستعمال.</p></div>
+    <div class="card c-cyan"><h4>بيانات مرجعية</h4><p class="small mb0">قوائم القيم المسموح بها: المناطق، وأنشطة الموردين، والعملات. تصنّف البيانات الرئيسة والمعاملات.</p></div>
+    <div class="card c-coral"><h4>بيانات المعاملات</h4><p class="small mb0">الأحداث: أمر شراء، وفاتورة، ودفعة. تشير إلى المورد ولا تعرّفه.</p></div>
+  </div>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> إصلاح الفواتير واحدة واحدة، والسبب أن المورد مسجل ثلاث مرات.</div>
+  <aside class="notes"><p>اسأل: في جامعة السَّمُر، أي هذه في ملف الدفعات؟ الدفعة معاملة، ورقم المورد فيها يشير إلى بيانات رئيسة، ورمز المنطقة بيانات مرجعية.</p><p>المصدر: ضوابط مكتب إدارة البيانات الوطنية، مجال إدارة البيانات الرئيسة والمرجعية (يطلب تحديد كائنات البيانات الرئيسة والمرجعية ومصادرها).</p></aside>
+</section>
+
+<section class="slide" id="one-supplier-three-ways" data-lo="LO1 LO2" data-n="7" data-session="1">
+  <div class="kicker">في سجل آخر من الجامعة</div>
+  <h2>جهة شريكة واحدة، ثلاث كتابات، ثلاثة أرقام</h2>
+  <table class="t small">
+    <tr><th>النظام</th><th>الاسم كما كُتب</th><th>رقم الجهة</th></tr>
+    <tr><td>نظام المنح</td><td>مركز الرَّواسخ للدراسات</td><td>P-0412</td></tr>
+    <tr><td>سجل الاتفاقيات</td><td><span class="ltr">Al-Rawasikh Center for Studies</span></td><td>AG-118</td></tr>
+    <tr><td>نظام الباحثين الزائرين</td><td>مركز الرواسخ للدراسات</td><td>V-2203</td></tr>
+  </table>
+  <p class="lead mt">وكالة البحث تعد الجهات الشريكة ثلاث مرات، ولا تعرف كم اتفاقية لها مع الجهة نفسها.</p>
+  <aside class="notes"><p>هذا مثال من سجل الجهات الشريكة في وكالة البحث بالجامعة، لا من ملفات المختبر. سنعود إليه في أمثلة الجلسة كلها، والمختبر على سجل الموردين.</p><p>السؤال للقاعة: لو سُئلت الوكالة عن عدد شركائها، أي رقم تعطي؟</p></aside>
+</section>
+
+<section class="slide" id="hub-styles" data-lo="LO1" data-n="8" data-session="1">
+  <div class="kicker">أنماط التنفيذ</div>
+  <h2>أربعة أنماط تختلف في مكان الإنشاء والتعديل</h2>
+  <table class="t small">
+    <tr><th>النمط</th><th>أين يُنشأ السجل ويُعدّل</th><th>ما في المحور</th></tr>
+    <tr><td><b>السجل المرجعي</b> (registry)</td><td>في المصادر كما هي</td><td>فهرس بالمعرفات وروابط إلى المصادر</td></tr>
+    <tr><td><b>التوحيد</b> (consolidation)</td><td>في المصادر، وتُنسخ إلى المحور في اتجاه واحد</td><td>سجل ذهبي للقراءة والتقارير</td></tr>
+    <tr><td><b>التعايش</b> (coexistence)</td><td>في المصادر، والمزامنة في الاتجاهين</td><td>سجل ذهبي يعود إلى المصادر</td></tr>
+    <tr><td><b>المركزي</b> (centralised)</td><td>في المحور وحده</td><td>المصدر الوحيد، والأنظمة تقرأ منه</td></tr>
+  </table>
+  <div class="callout note mt"><b>في الضوابط الوطنية.</b> المحور المركزي هو المطلوب للبيانات المرجعية.</div>
+  <aside class="notes"><p>الأنماط الأربعة كما تصفها ضوابط مكتب إدارة البيانات الوطنية في مواصفة تصميم محور البيانات الرئيسة والمرجعية: السجل المرجعي، والمستودع (وهو نمط التوحيد)، والتعايش، والمركزي. وتنص المواصفة نفسها على الإدارة المركزية للبيانات المرجعية. النسخة العربية من الضوابط تسمي المحور «مركز البيانات»، ونقول هنا «المحور» اختصارًا.</p><p>المصدر: ضوابط ومواصفات إدارة البيانات الوطنية وحوكمتها وحماية البيانات الشخصية، مجال إدارة البيانات الرئيسة والمرجعية، المواصفة <span class="ltr">RMD.2.2</span>.</p></aside>
+</section>
+
+<section class="slide" id="choose-style" data-lo="LO1" data-n="9" data-session="1">
+  <div class="kicker">كيف تختار</div>
+  <h2>ثلاثة أسئلة تختار النمط قبل أي أداة</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · من يغيّر السجل؟</b>إن بقيت المصادر تغيّر، فليس مركزيًا</div>
+    <div class="arrow frag" data-frag="b">←</div><div class="step c-cyan frag" data-frag="b"><b>2 · هل تعود القيم إلى المصادر؟</b>إن لزم ذلك فهو تعايش</div>
+    <div class="arrow frag" data-frag="c">←</div><div class="step c-coral frag" data-frag="c"><b>3 · ماذا يحتاج المستهلك؟</b>فهرس يكفي، أو سجل ذهبي للقراءة</div>
+  </div>
+  <div class="callout tip mt frag"><b>الخلاصة.</b> النمط قرار ملكية قبل أن يكون قرار تقنية.</div>
+  <aside class="notes"><p>اضغط مرة لكل سؤال. الحالة المعتادة في الجهات: يبدأ التوحيد للتقارير، ثم ينتقل إلى التعايش حين يطلب المالك تصحيح المصادر من السجل الذهبي.</p><p>الخطأ الشائع: اختيار المركزي لأنه «الأنظف»، دون أن يوافق أصحاب الأنظمة على التوقف عن إنشاء السجلات.</p></aside>
+</section>
+
+<section class="slide" id="styles-exercise" data-lo="LO1" data-n="10" data-session="1">
+  <div class="kicker">تمرين: أربعة مواقف</div>
+  <h2>اكتب لكل موقف النمط وسببه في سطر، ثم نصوّت</h2>
+  <ul class="bullets">
+    <li>أربعة مواقف من جهات مختلفة، كل منها في شريحة</li>
+    <li>اكتب أولًا النمط وسببه على ورقتك أو في <span class="ltr">labs/files/styles_worksheet.txt</span>، ثم صوّت</li>
+    <li>الهدف: ثلاثة مواقف من أربعة تطابق المرجع، وسبب لكل اختيار</li>
+  </ul>
+  <div class="callout note mt"><b>دون أي أداة ذكاء اصطناعي.</b> السبب يُكتب بكلماتك.</div>
+  <aside class="notes"><p>امنح ثماني دقائق للكتابة قبل أول تصويت، ثم صوّت على الشرائح الأربع تباعًا. اجمع الأوراق: هي دليل الناتج الأول من نواتج التعلم (ثلاثة من أربعة مع سبب).</p><p>المرجع: أ سجل مرجعي، ب توحيد، ج تعايش، د مركزي. لا تكشف المرجع قبل أن يكتب الجميع.</p></aside>
+</section>
+
+<section class="slide" id="style-scenario-a" data-lo="LO1" data-n="11" data-session="1">
+  <div class="kicker">الموقف أ</div>
+  <h2>أي نمط يناسب هذه الجهة؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO1" data-id="style-scenario-a-q1">
+    <p class="lead">هيئة لها خمسة أنظمة قديمة لكل منها مالك يرفض أي تغيير. تريد أن تعرف في أي نظام يوجد ملف المستفيد قبل الرد على طلبه، ولا تحتاج تقريرًا موحدًا.</p>
+    <div class="opts">
+      <div class="opt" data-ok data-k="أ">السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة</div>
+      <div class="opt" data-why="يبني سجلًا ذهبيًا لا يطلبه أحد هنا، ويضيف نسخة تحتاج صيانة" data-k="ب">التوحيد: تُنسخ السجلات إلى المحور ويُبنى منها سجل ذهبي</div>
+      <div class="opt" data-why="يفترض أن الأنظمة تقبل قيمًا عائدة من المحور، والملاك يرفضون التغيير" data-k="ج">التعايش: مزامنة في الاتجاهين مع الأنظمة</div>
+      <div class="opt" data-why="يتجاهل الملاك الذين يرفضون التوقف عن إنشاء السجلات في أنظمتهم" data-k="د">المركزي: إنشاء الملف في المحور وحده</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> المطلوب معرفة المكان لا القيمة، والمصادر لا تتغير. الفهرس يكفي.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: أ. من اختار التوحيد اسأله: من سيقرأ السجل الذهبي؟ لا أحد في هذا الموقف.</p></aside>
+</section>
+
+<section class="slide" id="style-scenario-b" data-lo="LO1" data-n="12" data-session="1">
+  <div class="kicker">الموقف ب</div>
+  <h2>أي نمط يناسب هذه الجهة؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO1" data-id="style-scenario-b-q1">
+    <p class="lead">شركة نقل لها ثلاثة أنظمة للعملاء. الإدارة تريد تقريرًا شهريًا موحدًا بعدد العملاء وقيمة تعاملاتهم، وكل نظام يبقى مكان إدخال العميل وتعديله.</p>
+    <div class="opts">
+      <div class="opt" data-why="الفهرس يدل على مكان السجل ولا يحسم أي القيم الصحيحة للتقرير" data-k="أ">السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة الثلاثة</div>
+      <div class="opt" data-why="يضيف كتابة إلى الأنظمة لم يطلبها أحد، ومعها تعقيد المزامنة" data-k="ب">التعايش: يعود السجل الذهبي إلى الأنظمة</div>
+      <div class="opt" data-ok data-k="ج">التوحيد: نسخ في اتجاه واحد وسجل ذهبي للتقارير</div>
+      <div class="opt" data-why="ينقل الإدخال من الأنظمة، والمطلوب أن يبقى الإدخال فيها" data-k="د">المركزي: يُدخل العميل في المحور وحده</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> القراءة الموحدة مطلوبة والإدخال يبقى في المصادر: نسخ في اتجاه واحد.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: ج. هذا نمط الجامعة اليوم: السجل الذهبي للموردين يُقرأ ولا يعود إلى الأنظمة الثلاثة بعد.</p></aside>
+</section>
+
+<section class="slide" id="style-scenario-c" data-lo="LO1" data-n="13" data-session="1">
+  <div class="kicker">الموقف ج</div>
+  <h2>أي نمط يناسب هذه الجهة؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO1" data-id="style-scenario-c-q1">
+    <p class="lead">مستشفى يصحح عنوان المريض في المحور بعد التحقق منه، ويريد أن يظهر التصحيح في نظام المواعيد ونظام الفوترة، مع بقاء الإدخال ممكنًا فيهما.</p>
+    <div class="opts">
+      <div class="opt" data-why="الفهرس لا يحمل العنوان المصحح أصلًا، فلا شيء يعود" data-k="أ">السجل المرجعي: فهرس يشير إلى النظامين</div>
+      <div class="opt" data-ok data-k="ب">التعايش: مزامنة السجل في الاتجاهين</div>
+      <div class="opt" data-why="النسخ في اتجاه واحد يترك التصحيح في المحور ولا يصل إلى النظامين" data-k="ج">التوحيد: نسخ من النظامين إلى المحور</div>
+      <div class="opt" data-why="يمنع الإدخال في النظامين، والموقف يشترط بقاءه" data-k="د">المركزي: الإدخال في المحور وحده</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> التصحيح يعود إلى المصادر والإدخال يبقى فيها: هذا تعريف التعايش.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: ب. نبّه إلى الكلفة: المزامنة في الاتجاهين تحتاج قواعد لحل التعارض حين يتغير السجل في مكانين.</p></aside>
+</section>
+
+<section class="slide" id="style-scenario-d" data-lo="LO1" data-n="14" data-session="1">
+  <div class="kicker">الموقف د</div>
+  <h2>أي نمط يناسب هذه الجهة؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO1" data-id="style-scenario-d-q1">
+    <p class="lead">جهة تستبدل أنظمة المشتريات الثلاثة بنظام واحد. قرر المالك أن تسجيل المورد وتعديله يتمان في وحدة واحدة، والأنظمة الأخرى تقرأ منها فقط.</p>
+    <div class="opts">
+      <div class="opt" data-why="يترك المصادر تنشئ السجلات، والقرار نقل الإنشاء إلى وحدة واحدة" data-k="أ">التوحيد: تُنسخ السجلات من الأنظمة إلى المحور</div>
+      <div class="opt" data-why="يزامن مع أنظمة لم تعد تُنشئ شيئًا، فلا مزامنة تلزم" data-k="ب">التعايش: مزامنة مع الأنظمة في الاتجاهين</div>
+      <div class="opt" data-why="الفهرس لا يكفي حين يصبح المحور مكان الإنشاء والتعديل" data-k="ج">السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة الثلاثة</div>
+      <div class="opt" data-ok data-k="د">المركزي: المحور هو المصدر الوحيد</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> الإنشاء والتعديل في مكان واحد، والبقية تقرأ: هذا المحور المركزي.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: د. أخيرًا اجمع الأوراق: من طابق ثلاثة من أربعة مع سبب مكتوب حقق دليل الناتج الأول.</p></aside>
+</section>
+
+<section class="slide" id="matching-pipeline" data-lo="LO2" data-n="15" data-session="1">
+  <div class="kicker">المطابقة</div>
+  <h2>خمس خطوات بين السجلات الخام والقرار</h2>
+  <div class="flow">
+    <div class="step c-teal"><b>1 · التوحيد</b>صيغة واحدة للاسم والرقم</div>
+    <div class="arrow">←</div><div class="step c-cyan"><b>2 · التكتيل</b>أي الأزواج تُقارن</div>
+    <div class="arrow">←</div><div class="step c-coral"><b>3 · المقارنة</b>مستوى اتفاق لكل حقل</div>
+    <div class="arrow">←</div><div class="step c-purple"><b>4 · الدرجة</b>احتمال أن يكون الزوج واحدًا</div>
+    <div class="arrow">←</div><div class="step c-amber"><b>5 · العتبتان</b>دمج، مراجعة، فصل</div>
+  </div>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> قفزة إلى الخطوة 5 بأداة جاهزة، دون قياس.</div>
+  <aside class="notes"><p>ملف القواعد في المختبر مرتب بالخطوات نفسها: standardise وnumbers، ثم blocking، ثم compare، ثم thresholds. الأداة Splink على DuckDB، وهي مثال؛ تعمل الفكرة نفسها في OpenRefine أو بأي محرك ربط سجلات.</p></aside>
+</section>
+
+<section class="slide" id="arabic-normalisation" data-lo="LO2" data-n="16" data-session="1">
+  <div class="kicker">الكتابة العربية</div>
+  <h2>أربع كتابات لاسم واحد تصبح كتابة واحدة</h2>
+  <table class="t small">
+    <tr><th>كما كُتب</th><th>ما الذي يختلف</th></tr>
+    <tr><td>مؤسسة الرواسخ</td><td>الصيغة المرجعية</td></tr>
+    <tr><td>مؤسسه الرواسخ</td><td>هاء بدل التاء المربوطة</td></tr>
+    <tr><td>مُؤسَّسة الرَّواسخ</td><td>حركات وشدة</td></tr>
+    <tr><td>مؤسـسة الرواسخ</td><td>تطويل</td></tr>
+  </table>
+  <p class="small mt">ومعها الهمزة على الألف (أ، إ، آ) والألف المقصورة في آخر الكلمة. كل خيار في ملف القواعد يوحّد واحدة منها.</p>
+  <aside class="notes"><p>شغّلت الأداة على الكتابات الأربع بخيارات التوحيد كلها فأعطت صيغة واحدة: «مؤسسه الرواسخ». هذا من سجل الجهات الشريكة، لا من ملفات المختبر.</p><p>الخطأ الشائع: توحيد الهمزة في كل موضع ينسى أن الهدف المقارنة لا التصحيح: لا تكتب الصيغة الموحدة في السجل الذهبي.</p></aside>
+</section>
+
+<section class="slide" id="legal-forms" data-lo="LO2" data-n="17" data-session="1">
+  <div class="kicker">كلمات لا تميّز</div>
+  <h2>احذف ما لا يميّز جهة من أخرى، واحتفظ بما يميّز</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>يُحذف قبل المقارنة</h4><p class="small mb0">الشكل القانوني: شركة، مؤسسة، المحدودة، ذ.م.م، <span class="ltr">Co., Ltd, LLC, Est.</span>، والنقاط والشرطات.</p></div>
+    <div class="card c-coral"><h4>يُحذف بحذر</h4><p class="small mb0">كلمة النشاط (للدراسات، <span class="ltr">Center for Studies</span>). حذفها يقرّب الترجمة من الأصل، ويقرّب أيضًا جهتين شقيقتين بنشاطين.</p></div>
+  </div>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> قائمة حذف طويلة ترفع الاستدعاء وتُسقط الدقة دون أن يلاحظ أحد.</div>
+  <aside class="notes"><p>اسأل: «مركز الرواسخ للدراسات» و«مركز الرواسخ للتدريب»، جهة واحدة أم اثنتان؟ قد تكونان شقيقتين لهما رقمان مختلفان. لهذا يفصل ملف القواعد بين ما يُحذف من الاسم وما يُحذف من المفتاح العابر للغتين وحده.</p></aside>
+</section>
+
+<section class="slide" id="cross-script-key" data-lo="LO2" data-n="18" data-session="1">
+  <div class="kicker">العربية والإنجليزية</div>
+  <h2>المفتاح العابر للغتين يقارن الحروف الساكنة لا الكتابة</h2>
+  <table class="t small">
+    <tr><th>الاسم</th><th>بعد التوحيد</th><th>المفتاح</th></tr>
+    <tr><td>مركز الرَّواسخ</td><td>الرواسخ</td><td class="ltr">rsk</td></tr>
+    <tr><td><span class="ltr">Al-Rawasikh Center</span></td><td><span class="ltr">al rawasikh</span></td><td class="ltr">rsk</td></tr>
+    <tr><td><span class="ltr">El Rawasekh Centre</span></td><td><span class="ltr">al rawasekh</span></td><td class="ltr">rsk</td></tr>
+  </table>
+  <p class="small mt">تُحذف أداة التعريف والحروف الصوتية، ويُجمع كل حرف عربي مع نظيره اللاتيني في صنف واحد: خ مع <span class="ltr">kh</span>، وق مع <span class="ltr">q</span> و<span class="ltr">k</span>.</p>
+  <aside class="notes"><p>الأرقام من تشغيل دالة المفتاح في أداة المقرر على هذه الأسماء، بعد حذف «مركز» و<span class="ltr">center</span> و<span class="ltr">centre</span>. الصيغ الإنجليزية الثلاث تعطي المفتاح نفسه.</p><p>حدود الفكرة: الترجمة لا تُنقل بالحروف. «الحديثة» و<span class="ltr">Modern</span> لا يلتقيان في مفتاح واحد. لذلك يبقى المفتاح مقارنة ضمن مقارنات، لا قاعدة دمج.</p></aside>
+</section>
+
+<section class="slide" id="blocking" data-lo="LO2" data-n="19" data-session="1">
+  <div class="kicker">التكتيل</div>
+  <h2>لا تقارن كل زوج: قارن من يشتركان في مفتاح</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>بلا تكتيل</h4><p class="small mb0">20,000 سجل تعني 199,990,000 زوج. أغلبها لا يستحق النظر.</p></div>
+    <div class="card c-coral"><h4>بتكتيل</h4><p class="small mb0">تُقارن الأزواج التي تتفق في مفتاح واحد على الأقل: الاسم الموحد، أو المفتاح العابر للغتين، أو رقم السجل.</p></div>
+  </div>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> الزوج الذي لا يجمعه أي مفتاح لن يُقارن أبدًا: يضيع من الاستدعاء قبل أي درجة.</div>
+  <aside class="notes"><p>العدد محسوب: 20,000 × 19,999 ÷ 2. هذا حجم ملف المختبر، لا نتيجة.</p><p>القاعدة العملية: أضف مفاتيح تكتيل حتى يتوقف الاستدعاء عن الارتفاع، وراقب عدد الأزواج المقارنة.</p></aside>
+</section>
+
+<section class="slide" id="deterministic-probabilistic" data-lo="LO2" data-n="20" data-session="1">
+  <div class="kicker">نوعان من القواعد</div>
+  <h2>القاعدة الحتمية تحكم وحدها، والاحتمالية تجمع الأدلة</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>حتمية</h4><p class="small mb0">«الرقم نفسه والهاتف نفسه يعني الجهة نفسها». واضحة وسريعة، وتنهار حين يتكرر رقم لا يعني شيئًا، مثل <span class="ltr">N/A</span> في رقم الجهة.</p></div>
+    <div class="card c-cyan"><h4>احتمالية (Fellegi-Sunter)</h4><p class="small mb0">لكل حقل وزن من نسبتين: كم مرة يتفق في الأزواج المتطابقة (m)، وكم مرة يتفق مصادفة (u).</p></div>
+  </div>
+  <p class="small mt">مثال من سجل الجهات الشريكة: m = 0.9 وu = 0.002 لرقم الجهة، فوزن الاتفاق <span class="ltr">+8.81</span> ووزن الاختلاف <span class="ltr">-3.32</span>.</p>
+  <aside class="notes"><p>الوزن لوغاريتم للأساس 2 للنسبة: log2(0.9 ÷ 0.002) = 8.81، وlog2(0.1 ÷ 0.998) = -3.32، محسوبان في سكربت أرقام الشرائح. Splink يقدّر m بالتعظيم المتوقع (EM) دون الأزواج الموسومة، ويقدّر u من عينة عشوائية.</p><p>قبل أي قاعدة حتمية: رتّب قيم العمود المعرّف بتكرارها؛ القيمة الأكثر تكرارًا إنذار بقيمة تعني «لا أعرف»، وقاعدة «الرقم نفسه» تجمع كل من كُتبت لهم في جهة واحدة. ووحّد الأرقام (المسافات والشرطات) قبل المقارنة. في المختبر يجد المشاركون القيمة في ملف الموردين بأنفسهم: لا تذكرها.</p><p>المصدر: Splink، نموذج Fellegi-Sunter (دليل الموضوع).</p></aside>
+</section>
+
+<section class="slide" id="precision-recall" data-lo="LO2" data-n="21" data-session="1">
+  <div class="kicker">القياس</div>
+  <h2>الدقة: كم من دمجك صحيح. الاستدعاء: كم من الصحيح دمجت</h2>
+  <table class="t small">
+    <tr><th>سجل الجهات الشريكة، 40 زوجًا موسومًا (18 متطابقًا)</th><th>عتبة 0.9</th><th>عتبة 0.6</th></tr>
+    <tr><td>قالت الأداة «متطابق» وهو متطابق (TP)</td><td>14</td><td>17</td></tr>
+    <tr><td>قالت «متطابق» وهو غير متطابق (FP)</td><td>1</td><td>3</td></tr>
+    <tr><td>فاتها متطابق (FN)</td><td>4</td><td>1</td></tr>
+    <tr><td><b>الدقة</b> = TP ÷ (TP + FP)</td><td>93.3%</td><td>85.0%</td></tr>
+    <tr><td><b>الاستدعاء</b> = TP ÷ (TP + FN)</td><td>77.8%</td><td>94.4%</td></tr>
+  </table>
+  <aside class="notes"><p>الأرقام محسوبة في سكربت أرقام الشرائح: 14 ÷ 15 = 93.3%، و14 ÷ 18 = 77.8%، و17 ÷ 20 = 85.0%، و17 ÷ 18 = 94.4%.</p><p>اسأل: أي خطأ أسوأ للموردين؟ الدمج الخاطئ يدفع لمورد مال غيره أو يحجب منشأة؛ الفوت يترك ازدواجًا تصلحه المراجعة. لذلك تُقرأ الدقة عند عتبة الدمج الآلي أولًا.</p></aside>
+</section>
+
+<section class="slide" id="by-script" data-lo="LO2" data-n="22" data-session="1">
+  <div class="kicker">التفصيل</div>
+  <h2>رقم واحد للكل يخفي الأزواج العربية الإنجليزية</h2>
+  <ul class="bullets">
+    <li>قسّم الأزواج الموسومة: عربي مع عربي، وإنجليزي مع إنجليزي، وعربي مع إنجليزي</li>
+    <li>كل صنف له أخطاء غير أخطاء الآخر: الهمزة والتاء في الأول، والتهجئة في الثاني، والترجمة في الثالث</li>
+    <li>صنف صغير ضعيف يختفي في متوسط جيد</li>
+  </ul>
+  <div class="callout tip mt"><b>ما يُسلَّم.</b> جدول جودة عند عتبتين، مفصّل بحسب نظام الكتابة: هذا دليل الناتج الثاني.</div>
+  <aside class="notes"><p>من يعرض رقمًا واحدًا لا يستطيع أن يجيب: هل نخدم الموردين الذين يكتبون أسماءهم بالإنجليزية كما نخدم غيرهم؟ هذا سؤال إنصاف أيضًا، لا جودة فقط.</p></aside>
+</section>
+
+<section class="slide" id="two-thresholds" data-lo="LO2 LO5" data-n="23" data-session="1">
+  <div class="kicker">العتبتان</div>
+  <h2>عتبتان تصنعان ثلاث مناطق، والوسطى عمل بشري</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>فوق العتبة العليا</h4><p class="small mb0">دمج آلي. الدقة هنا يجب أن تكون عالية جدًا.</p></div>
+    <div class="card c-amber"><h4>بين العتبتين</h4><p class="small mb0">قائمة المراجعة. حجمها عبء المشرفين كل أسبوع.</p></div>
+    <div class="card c-coral"><h4>تحت العتبة الدنيا</h4><p class="small mb0">لا دمج. ما فات هنا لا يراه أحد.</p></div>
+  </div>
+  <div class="callout warn mt"><b>أين يقع الخطأ.</b> اختيار العتبة من الدقة وحدها، دون عدّ الأزواج التي ستقع في الوسط.</div>
+  <aside class="notes"><p>اربط هذا بالجلسة الرابعة: حجم المنطقة الوسطى هو حمل قائمة الإشراف، وقرار العتبة قرار موارد.</p><p>الأداة في المختبر تطبع «auto matches» و«pairs between the thresholds»: الرقم الثاني هو حجم القائمة.</p></aside>
+</section>
+
+<section class="slide" id="check-matching" data-lo="LO2" data-n="24" data-session="1">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>ما أول ما تفعله؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO2" data-id="check-matching-q1">
+    <p class="lead">في سجل الجهات الشريكة، الاستدعاء على الأزواج العربية الإنجليزية 31% وعلى الأزواج العربية 88%. الدقة فوق 95% في الصنفين. ماذا تغيّر أولًا؟</p>
+    <div class="opts">
+      <div class="opt" data-why="يخفض العتبة لرفع رقم ضعيف، والأزواج الفائتة لم تُقارن أصلًا فلا تصل إليها أي عتبة" data-k="أ">خفض عتبة الدمج من 0.9 إلى 0.6</div>
+      <div class="opt" data-why="يعالج الكتابة العربية، والضعف في الأزواج التي أحد طرفيها إنجليزي" data-k="ب">تشغيل توحيد الهمزة والتاء المربوطة</div>
+      <div class="opt" data-ok data-k="ج">إضافة المفتاح العابر للغتين إلى التكتيل</div>
+      <div class="opt" data-why="يرفع الأرقام بقاعدة لا يعرف أحد صحتها، والدمج الحتمي لا يُراجع" data-k="د">قاعدة حتمية تدمج كل زوج يتفق في الحرف الأول من الاسم</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> الاسمان بكتابتين لا يلتقيان في مفتاح تكتيل، فلا يُقارنان أصلًا. المفتاح العابر يجمعهما.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: ج. الأرقام في السؤال مثال مفترض من سجل الجهات الشريكة. من اختار خفض العتبة: اسأله كم زوجًا عربيًا إنجليزيًا قورن أصلًا.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-1-1" data-auto="lab" data-lab="1.1" data-label="المختبر 1.1" data-n="25" data-session="1">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 1.1 · 105 دقائق</div><h2>ضبط قواعد المطابقة على 500 زوج موسوم</h2><p class="lead small">تبدأ من ملف قواعد ضعيف على 20,000 سجل مورد، فتضيف توحيد الأسماء والمفتاح العابر للغتين والتكتيل والقواعد الحتمية وقاعدة الحجز، وتخرج بملف قواعد وجدول لجودة المطابقة عند عتبتين بحسب نظام الكتابة</p><a class="nb" href="../labs/D1_1_matching.html">D1_1_matching.html</a></div><ul class="checklist"><li>شغّل ملف البداية واقرأ جدول الجودة <span class="min">10 د</span></li><li>وحّد الكتابة العربية وأعد القياس <span class="min">20 د</span></li><li>وحّد الأسماء اللاتينية واحذف الأشكال القانونية <span class="min">15 د</span></li><li>أضف المفتاح العابر للغتين والتكتيل عليه <span class="min">20 د</span></li><li>أصلح الأرقام والقيم البديلة وأضف قاعدة الحجز <span class="min">15 د</span></li><li>اختر العتبتين واحفظ جدول الجودة <span class="min">15 د</span></li><li>افتح لوحة العناقيد وسجّل خطأين <span class="min">10 د</span></li><li class="stretch">✱ إضافي: جرّب عتبتين أخريين، وقدّر كم زوجًا ينتقل بين الدمج الآلي وقائمة المراجعة</li></ul></div>
+  <aside class="notes"><p>المساعد مرشد فقط في هذا المختبر، ولا يُلصق فيه شيء من الملفات. راقب: من حذف كلمات النشاط من الاسم نفسه (سترتفع الأخطاء)، ومن لم يجد القيمة البديلة في رقم السجل. ذكّر الجميع أن سجل التشغيل <span class="ltr">out/run_log.jsonl</span> يُسلّم.</p><p>من تعطل تثبيته يعمل في Colab. من تأخر يأخذ ملف المرجع بعد المختبر ليكمل الخطوة 7.</p></aside>
+</section>
+
+<section class="slide" id="debrief-1-1" data-label="بعد المختبر 1.1" data-lo="LO2" data-n="26" data-session="1">
+  <div class="kicker">بعد المختبر 1.1</div>
+  <h2>من 42.7% إلى 96.9% استدعاء، بخطوات تعرف أثر كل منها</h2>
+  <table class="t small">
+    <tr><th>الخطوة (عتبة الدمج)</th><th>الدقة</th><th>الاستدعاء</th><th>عربي مع إنجليزي</th></tr>
+    <tr><td>ملف البداية (0.9)</td><td>81.6%</td><td>42.7%</td><td>43.6%</td></tr>
+    <tr><td>الكتابة العربية والأشكال القانونية (0.9)</td><td>85.5%</td><td>56.5%</td><td>43.6%</td></tr>
+    <tr><td>المفتاح العابر للغتين (0.9)</td><td>84.1%</td><td>81.2%</td><td>73.1%</td></tr>
+    <tr><td>الأرقام والقيم البديلة (0.9)</td><td>90.6%</td><td>93.1%</td><td>88.5%</td></tr>
+    <tr><td>الحجز والتكتيل بالهاتف والبريد (0.95)</td><td>97.3%</td><td>96.9%</td><td>96.2%</td></tr>
+  </table>
+  <aside class="notes"><p>الأرقام من تشغيل الحل المرجعي (<span class="ltr">solutions/check.py 1.1</span>) على 500 زوج. في ملف البداية 40,403 تطابقات حتمية سببها 272 سجلًا رقمها 0000000000؛ بعد إعلانها قيمة بديلة صارت 5,454، وبعد اشتراط الهاتف مع الرقم 4,679.</p><p>عند العتبة الدنيا 0.5 تنخفض الدقة إلى 89.7%: الشركات الشقيقة تقع هناك، وقائمة المراجعة فيها 699 زوجًا. اطلب من مشاركين اثنين عرض خطأين من لوحة العناقيد.</p></aside>
+</section>
+
+<!-- الجلسة 2 -->
+
+<section class="slide section" id="s2" data-auto="section" data-session="2" data-n="27">
+  <div class="kicker">الجلسة 2</div>
+  <h1>السجلات الذهبية وقواعد الاستبقاء</h1>
+  <ul class="bullets outcomes"><li>يكتب قاعدة استبقاء لكل سمة ويبرّرها من مصفوفة موثوقية المصادر</li><li>يكشف التاريخ الذي لا يدل على تحديث من المورد، ويستبعده من قاعدة الحداثة</li><li>يحتفظ بالإسناد الترافقي وتاريخ القيم، ويراجع قواعد زميل بقائمة فحص</li></ul>
+  <div class="sess-no">02</div>
+</section>
+
+<section class="slide" id="golden-record" data-lo="LO3" data-n="28" data-session="2">
+  <div class="kicker">السجل الذهبي</div>
+  <h2>أفضل قيمة لكل سمة، مع مصدرها</h2>
+  <table class="t small">
+    <tr><th>السمة</th><th>القيمة المختارة</th><th>من أين</th></tr>
+    <tr><td>الاسم العربي</td><td>مركز الرواسخ للدراسات</td><td>نظام المنح</td></tr>
+    <tr><td>الاسم الإنجليزي</td><td><span class="ltr">Al-Rawasikh Center for Studies</span></td><td>سجل الاتفاقيات</td></tr>
+    <tr><td>المدينة</td><td>أبها</td><td>نظام الباحثين الزائرين، الأحدث</td></tr>
+  </table>
+  <div class="callout tip mt"><b>الخلاصة.</b> السجل الذهبي لا يأتي من نظام واحد: كل سمة تأتي من حيث هي أوثق.</div>
+  <aside class="notes"><p>المثال من سجل الجهات الشريكة. لاحظ عمود «من أين»: المالك يريد أن يعرف مصدر كل قيمة، وهذا ما يسميه المختبر الإسناد إلى السجل المصدري.</p><p>الضوابط الوطنية تطلب قواعد موثقة للمطابقة والدمج لتكوين السجل الذهبي (RMD.2.1 وRMD.2.4).</p></aside>
+</section>
+
+<section class="slide" id="survivorship-rules" data-lo="LO3" data-n="29" data-session="2">
+  <div class="kicker">قواعد الاستبقاء</div>
+  <h2>خمس قواعد تكفي معظم السمات</h2>
+  <table class="t small">
+    <tr><th>القاعدة</th><th>تختار</th><th>تناسب</th></tr>
+    <tr><td>أولوية المصدر</td><td>أول مصدر يحمل قيمة، بترتيب مكتوب</td><td>ما يتحقق منه مصدر بعينه</td></tr>
+    <tr><td>الأحدث</td><td>قيمة آخر تحديث</td><td>ما يتغير: العنوان والهاتف</td></tr>
+    <tr><td>الأكثر تكرارًا</td><td>ما تتفق عليه أغلب المصادر</td><td>معرّف ينسخه الجميع</td></tr>
+    <tr><td>الأكمل</td><td>القيمة الأطول أو الأتم</td><td>نص يُختصر أحيانًا</td></tr>
+    <tr><td>قرار المشرف</td><td>ما يكتبه المشرف ويُحفظ</td><td>ما لا تحسمه قاعدة</td></tr>
+  </table>
+  <aside class="notes"><p>أداة المختبر تنفذ الثلاث الأولى. الأكمل وقرار المشرف يُكتبان في وثيقة القواعد إن احتجتهما.</p><p>اسأل: لماذا لا تصلح قاعدة واحدة للسجل كله؟ لأن من يتحقق من الاسم ليس من يتحقق من الهاتف.</p></aside>
+</section>
+
+<section class="slide" id="trust-matrix" data-lo="LO3" data-n="30" data-session="2">
+  <div class="kicker">مصفوفة الموثوقية</div>
+  <h2>الثقة بالمصدر تختلف من سمة إلى سمة</h2>
+  <table class="t small">
+    <tr><th>سجل الجهات الشريكة</th><th>المنح</th><th>الاتفاقيات</th><th>الباحثون الزائرون</th></tr>
+    <tr><td>الاسم العربي</td><td>1</td><td>3</td><td>2</td></tr>
+    <tr><td>الاسم الإنجليزي</td><td>3</td><td>1</td><td>2</td></tr>
+    <tr><td>رقم الجهة</td><td>1</td><td>2</td><td>3</td></tr>
+    <tr><td>المدينة</td><td>3</td><td>2</td><td>1</td></tr>
+  </table>
+  <p class="small mt">1 الأوثق. كل رقم يحتاج سببًا: من يكتب القيمة في ذلك المصدر، ومن يتحقق منها.</p>
+  <aside class="notes"><p>الأسباب في هذا المثال: المنح تأخذ الاسم العربي من خطاب الجهة الرسمي؛ الاتفاقيات تُوقّع بالاسم الإنجليزي؛ الباحثون الزائرون يحدّثون عنوان الجهة في كل زيارة.</p><p>المصفوفة بلا أسباب رأي؛ بأسبابها قاعدة يمكن مراجعتها.</p></aside>
+</section>
+
+<section class="slide" id="recency-trap" data-lo="LO3" data-n="31" data-session="2">
+  <div class="kicker">فخ التاريخ</div>
+  <h2>«آخر تحديث» قد يعني آخر نقل، لا آخر تغيير</h2>
+  <div class="cols cols-2">
+    <ul class="bullets">
+      <li>نُقل سجل الاتفاقيات إلى نظام جديد في يوم واحد</li>
+      <li>صار تاريخ التحديث في كل سجلاته يوم النقل</li>
+      <li>قاعدة «الأحدث» تفضّله على كل ما قبل ذلك اليوم، وفيه عناوين قديمة</li>
+    </ul>
+    <div class="card c-coral"><h4>كيف تكشفه</h4><p class="small mb0">رتّب التواريخ لكل مصدر. يوم واحد يتكرر في آلاف السجلات ليس يوم تحديث.</p></div>
+  </div>
+  <div class="callout tip mt"><b>الإصلاح.</b> استبعد تواريخ ذلك المصدر من قاعدة الحداثة، أو اجعله آخر الترتيب عند التعادل.</div>
+  <aside class="notes"><p>اسأل: أي مصدر عندكم نُقل مرة واحدة من نظام قديم؟ غالبًا يعرف كل مشارك واحدًا.</p><p>هذا مثال من سجل الجهات الشريكة؛ في المختبر ابحث عن المصدر الذي يحمل مثل هذا بنفسك.</p></aside>
+</section>
+
+<section class="slide" id="xref-history" data-lo="LO3" data-n="32" data-session="2">
+  <div class="kicker">الإسناد الترافقي والتاريخ</div>
+  <h2>احتفظ بما يلزم لفك الدمج ولشرح أي قيمة</h2>
+  <div class="cols cols-2">
+    <div class="card c-teal"><h4>الإسناد الترافقي (cross-reference)</h4><p class="small mb0">لكل سجل ذهبي قائمة السجلات المصدرية خلفه. بدونها لا يُفك دمج خاطئ ولا تُحدّث المصادر.</p></div>
+    <div class="card c-cyan"><h4>التاريخ (history)</h4><p class="small mb0">كل تغيير في قيمة: القديمة، والجديدة، والقاعدة، وملف القواعد. بدونه لا يعرف المالك لماذا تغير عنوان مورد.</p></div>
+  </div>
+  <div class="callout note mt"><b>في الضوابط الوطنية.</b> متطلبات المحور تشمل تتبع التغييرات على السجلات عبر الزمن، وسجلًا لطلبات التغيير وقراراتها.</div>
+  <aside class="notes"><p>المواصفتان RMD.2.5 (إدارة الإصدارات في متطلبات المحور) وRMD.6.1 (سجل طلبات التغيير). أداة المختبر تكتب الإسناد في <span class="ltr">golden_xref.csv</span> والتاريخ في <span class="ltr">golden_history.csv</span>.</p></aside>
+</section>
+
+<section class="slide" id="rule-document" data-lo="LO3" data-n="33" data-session="2">
+  <div class="kicker">وثيقة القواعد</div>
+  <h2>صفحة واحدة يقرؤها المالك ويراجعها زميل</h2>
+  <ul class="bullets">
+    <li>لكل سمة: القاعدة، وسببها، ورقمها على العينة المتحقق منها</li>
+    <li>ما بقي خطأ، ولماذا لا تصلحه قاعدة، وإلى أين يُحال</li>
+    <li>من يغيّر القواعد، ومتى، وكيف يُسجّل التغيير</li>
+  </ul>
+  <div class="callout tip mt"><b>مراجعة الزميل بثلاثة أسئلة.</b> لكل سمة قاعدة وسبب؟ تاريخ لا يدل على تحديث؟ مصدر كل قيمة معروف؟</div>
+  <aside class="notes"><p>الوثيقة المراجَعة هي دليل الناتج الثالث مع جدول السجلات الذهبية. اطلب أن يكتب المراجع اسمه وملاحظاته في آخرها.</p></aside>
+</section>
+
+<section class="slide" id="check-survivorship" data-lo="LO3" data-n="34" data-session="2">
+  <div class="kicker">نقطة تحقق</div>
+  <h2>أي قاعدة للهاتف؟</h2>
+  <div class="quiz" data-type="single" data-lo="LO3" data-id="check-survivorship-q1">
+    <p class="lead">في سجل الجهات الشريكة يحدّث الباحثون الزائرون هاتف الجهة في كل زيارة، والمنح تنسخه مرة عند فتح الملف، والاتفاقيات نُقلت دفعة واحدة فتاريخ كل سجلاتها يوم النقل. أي قاعدة للهاتف؟</p>
+    <div class="opts">
+      <div class="opt" data-why="يثق بالمصدر الأوثق في الاسم، والاسم والهاتف يتحقق منهما شخصان مختلفان" data-k="أ">أولوية المصدر: المنح أولًا، لأنها الأوثق في الاسم</div>
+      <div class="opt" data-why="يترك تاريخ النقل يغلب، فيأخذ هاتفًا قديمًا من الاتفاقيات" data-k="ب">الأحدث، بتواريخ المصادر الثلاثة كما هي</div>
+      <div class="opt" data-why="الأكثر تكرارًا يكافئ النسخ القديمة إن تكررت، والهاتف الجديد في مصدر واحد" data-k="ج">الأكثر تكرارًا بين المصادر الثلاثة</div>
+      <div class="opt" data-ok data-k="د">الأحدث، مع استبعاد تواريخ الاتفاقيات</div>
+    </div>
+    <div class="callout tip why"><b>لماذا.</b> الهاتف يتغير، ومن يحدّثه الزائرون. تاريخ النقل لا يقول متى تغير الهاتف.</div>
+  </div>
+  <aside class="notes"><p>الإجابة: د. من اختار «الأكثر تكرارًا»: اسأله ماذا يحدث حين يغيّر الشريك هاتفه ويبقى القديم في مصدرين.</p></aside>
+</section>
+
+<section class="slide lab top" id="lab-1-2" data-auto="lab" data-lab="1.2" data-label="المختبر 1.2" data-n="35" data-session="2">
+  <div class="cols cols-2 mid"><div><div class="lab-tag">المختبر 1.2 · 105 دقائق</div><h2>السجلات الذهبية لثلاثة آلاف مورد</h2><p class="lead small">تكتب قواعد الاستبقاء لسبع سمات على عناقيد معتمدة ومصفوفة موثوقية، وتقيسها على 60 موردًا تحقق منهم المشرفون، وتخرج بجدول السجلات الذهبية ووثيقة قواعد راجعها زميل</p><a class="nb" href="../labs/D1_2_golden.html">D1_2_golden.html</a></div><ul class="checklist"><li>اقرأ مصفوفة الموثوقية وملاحظات المشرفين <span class="min">10 د</span></li><li>شغّل قواعد البداية واقرأ النتيجة على الستين <span class="min">10 د</span></li><li>اكتب قاعدة لكل سمة من السمات السبع <span class="min">30 د</span></li><li>اكشف فخ التواريخ وحسم التعادل <span class="min">15 د</span></li><li>أعد التشغيل واقرأ الإسناد الترافقي والتاريخ <span class="min">15 د</span></li><li>اكتب وثيقة القواعد <span class="min">15 د</span></li><li>تبادل الوثيقة مع زميل وراجعها <span class="min">10 د</span></li><li class="stretch">✱ إضافي: اكتب قاعدة لسمة لا تحملها ملفات المختبر، مثل رقم الحساب البنكي: من يملكها، ومن يغيّرها، ومن أي مصدر تؤخذ</li></ul></div>
+  <aside class="notes"><p>يبدأ المختبر من عناقيد معتمدة، لا من ناتج المختبر 1.1، فلا يتأخر أحد بسبب الصباح. المساعد مرشد فقط. راقب من يغيّر قاعدتين معًا فلا يعرف أيهما أثّر. الخطوة 7 مراجعة زميل: اجعل الأزواج من طاولتين مختلفتين.</p></aside>
+</section>
+
+<section class="slide" id="debrief-1-2" data-label="بعد المختبر 1.2" data-lo="LO3" data-n="36" data-session="2">
+  <div class="kicker">بعد المختبر 1.2</div>
+  <h2>القواعد رفعت الصحيح من 346 إلى 379 قيمة من 420</h2>
+  <table class="t small">
+    <tr><th>على 60 موردًا متحققًا منهم</th><th>البداية: المالية أولًا</th><th>الأحدث بكل التواريخ</th><th>المرجع</th></tr>
+    <tr><td>المدينة</td><td>46</td><td>55</td><td>58</td></tr>
+    <tr><td>الهاتف</td><td>38</td><td>50</td><td>51</td></tr>
+    <tr><td>الاسم الإنجليزي</td><td>30</td><td>30</td><td>39</td></tr>
+    <tr><td>كل السمات السبع</td><td>346</td><td>367</td><td>379</td></tr>
+  </table>
+  <aside class="notes"><p>الأرقام من <span class="ltr">solutions/check.py 1.2</span>. سجل المشاريع يحمل يوم النقل في كل سجلاته، فقاعدة «الأحدث» بلا استثناء أخذت منه مدنًا قديمة.</p><p>ما بقي خطأ في المرجع لا تصلحه قاعدة: اسم إنجليزي كتبه المورد بصيغة غير صيغة مستنداته، ومورد انتقل ولا يعرف انتقاله إلا سجل قديم. هذه حالات لقائمة الإشراف غدًا.</p></aside>
+</section>
+
+<section class="slide" id="wrap-up" data-n="37" data-session="2">
+  <div class="kicker">خلاصة اليوم 1</div>
+  <h2>ثلاثة أمور تبقى معك</h2>
+  <div class="cols cols-3">
+    <div class="card c-teal"><h4>النمط قرار ملكية</h4><p class="small mb0">من يُنشئ السجل ومن يغيّره يحدد النمط قبل الأداة.</p></div>
+    <div class="card c-coral"><h4>المطابقة تُقاس</h4><p class="small mb0">دقة واستدعاء عند عتبتين، لكل نظام كتابة، على أزواج موسومة.</p></div>
+    <div class="card c-purple"><h4>السجل الذهبي بقواعد</h4><p class="small mb0">قاعدة لكل سمة بسببها، ومصدر لكل قيمة، وتاريخ لكل تغيير.</p></div>
+  </div>
+  <aside class="notes"><p>اطلب من كل مشارك أن يحفظ ملفي القواعد وسجل التشغيل: هي جزء من المختبرات المقيّمة ومن حزمة القرار.</p></aside>
+</section>
+
+<section class="slide dark" id="next" data-label="التالي" data-n="38" data-session="2">
+  <div class="kicker">التالي</div>
+  <h2>اليوم 2: قوائم الرموز والإشراف على البيانات</h2>
+  <p class="lead">احفظ <span class="ltr">my_rules.yml</span> و<span class="ltr">my_survivorship.yml</span> وسجل التشغيل. اقرأ <span class="ltr">files/codes/change_requests.txt</span> قبل الجلسة.</p>
+  <aside class="notes"><p>من لم يكمل المختبرين يكملهما في المنزل؛ مختبرا الغد يبدآن من ملفاتهما الخاصة ولا يحتاجان ناتج اليوم.</p></aside>
+</section>
+</div>
+<script type="application/json" id="academy-data">{"v":1,"engine":"1.0.0","build":{"at":"2026-11-18T02:12:01Z","version":"2027.1.0","commit":"986206f"},"course":{"id":"lds-dmg-208","code":"LDS-DMG-208","title":"إدارة البيانات الرئيسة والبيانات المرجعية","track":"executives","lang":"ar","dir":"rtl","url":"https://sdaiaacademy.github.io/lds-dmg-208/","repo":"SDAIAAcademy/lds-dmg-208","home":"../index.html"},"deck":{"id":"day1","kind":"day","day":1,"label":"اليوم 1","title":"من ثلاثة أنظمة إلى سجل واحد","prev":null,"next":"day2.html","md":"day1.md","alt":{}},"sessions":[{"n":1,"label":"الجلسة 1","title":"أنماط التنفيذ وقواعد المطابقة","slide":"s1","outcomes":["يميّز البيانات الرئيسة من المرجعية ومن بيانات المعاملات، ويختار نمط التنفيذ لموقف مؤسسي ويبرّره","يضبط توحيد الأسماء العربية والإنجليزية والتكتيل وقواعد المطابقة في ملف قواعد","يقيس الدقة والاستدعاء على أزواج موسومة عند عتبتين، مفصّلين بحسب نظام الكتابة"],"minutes":180,"lab":{"id":"1.1","title":"ضبط قواعد المطابقة على 500 زوج موسوم","minutes":105,"href":"../labs/D1_1_matching.html"}},{"n":2,"label":"الجلسة 2","title":"السجلات الذهبية وقواعد الاستبقاء","slide":"s2","outcomes":["يكتب قاعدة استبقاء لكل سمة ويبرّرها من مصفوفة موثوقية المصادر","يكشف التاريخ الذي لا يدل على تحديث من المورد، ويستبعده من قاعدة الحداثة","يحتفظ بالإسناد الترافقي وتاريخ القيم، ويراجع قواعد زميل بقائمة فحص"],"minutes":180,"lab":{"id":"1.2","title":"السجلات الذهبية لثلاثة آلاف مورد","minutes":105,"href":"../labs/D1_2_golden.html"}}],"slides":[{"id":"title","n":1,"title":"من ثلاثة أنظمة إلى سجل واحد","kind":"title","session":0,"hash":"fc823545","md":"#### [day1#title] من ثلاثة أنظمة إلى سجل واحد\n\n*أكاديمية سدايا · إدارة البيانات الرئيسة والبيانات المرجعية*\n\nاليوم 1: تختار نمط التنفيذ، وتضبط قواعد المطابقة وتقيسها، ثم تكوّن السجلات الذهبية\n\nمسار التنفيذيين والقادة · يومان تدريبيان + يوم للمشروع الختامي · جلستان · مختبران · LDS-DMG-208","notes":"رحّب بالمشاركين، واسأل القاعة: كم موردًا تتعامل معه جهتك؟ ومن يعرف الرقم بثقة؟ غالبًا لا أحد. هذا سؤال اليوم.\n\nاليوم جلستان، في كل منهما نحو 75 دقيقة للمفاهيم ونقاط التحقق، ثم مختبر من 105 دقائق. الاستراحات بمفتاح B.\n\nالجلسة الأولى أكثف الجلسات، فوزّع دقائقها الخمس والسبعين: 5 للتأكد من الأداة، و10 للأنواع الثلاثة ومثال الجهة الشريكة، و25 لأنماط التنفيذ مع التمرين وتصويت المواقف الأربعة، و35 للمطابقة حتى نقطة التحقق. إن تأخرت فاختصر شرائح الكلمات التي لا تميّز والتكتيل إلى دقيقتين لكل منهما: المختبر يعود إليهما.","minutes":null,"lo":[]},{"id":"agenda","n":2,"title":"من ثلاثة أنظمة إلى سجل واحد","kind":"content","session":0,"hash":"961f39c9","md":"#### [day1#agenda] من ثلاثة أنظمة إلى سجل واحد\n\n*اليوم*\n\n- **الجلسة 1 · أنماط التنفيذ وقواعد المطابقة**: البيانات الرئيسة والمرجعية وأنماط التنفيذ الأربعة، ثم المطابقة: التوحيد والتكتيل والأسماء بالعربية والإنجليزية والعتبات\n- **الجلسة 2 · السجلات الذهبية وقواعد الاستبقاء**: قاعدة لكل سمة من موثوقية المصدر وحداثته واكتماله، مع الإسناد الترافقي وتاريخ القيم","notes":"","minutes":null,"lo":[]},{"id":"setup-check","n":3,"title":"تأكد أن الأداة تعمل على حاسوبك أو في Colab","kind":"content","session":0,"hash":"ef64462c","md":"#### [day1#setup-check] تأكد أن الأداة تعمل على حاسوبك أو في Colab\n\n*قبل أن نبدأ*\n\n- **على الحاسوب.** ثبّت uv، ثم من مجلد labs شغّل الأمر أدناه. يكفي أن يطبع جدولًا فيه أرقام.\n- **في Google Colab.** افتح labs/notebook.ipynb وشغّل خلية الإعداد ثم خلية القسم 1.1.\n\n```\ncd labs\nuv run kit/match.py files/matching/rules_start.yml\n```\n\n> **لا برمجة في المقرر.** تغيّر ملفات قواعد وجداول، وتشغّل أوامر جاهزة.","notes":"أول تشغيل ينزّل المكتبات (Splink وDuckDB) ويستغرق دقيقة أو دقيقتين، وكل تشغيل بعده نحو عشر ثوانٍ. من تعذر عليه التثبيت (جهاز مقيد الصلاحيات) يعمل في Colab بالدفتر نفسه.\n\nلا تشرح الأرقام التي تظهر الآن: هي نقطة بداية المختبر 1.1.","minutes":null,"lo":[]},{"id":"s1","n":4,"title":"أنماط التنفيذ وقواعد المطابقة","kind":"section","session":1,"hash":"3bc72927","md":"#### [day1#s1] أنماط التنفيذ وقواعد المطابقة\n\n*الجلسة 1*\n\n- يميّز البيانات الرئيسة من المرجعية ومن بيانات المعاملات، ويختار نمط التنفيذ لموقف مؤسسي ويبرّره\n- يضبط توحيد الأسماء العربية والإنجليزية والتكتيل وقواعد المطابقة في ملف قواعد\n- يقيس الدقة والاستدعاء على أزواج موسومة عند عتبتين، مفصّلين بحسب نظام الكتابة","notes":"","minutes":null,"lo":["LO1","LO2"]},{"id":"recap-prereq","n":5,"title":"تعرف المجالات وتنميط الجداول: نبدأ من هناك","kind":"content","session":1,"hash":"5984d79b","md":"#### [day1#recap-prereq] تعرف المجالات وتنميط الجداول: نبدأ من هناك\n\n*ما نبني عليه*\n\n- مجالات إدارة البيانات ومنها البيانات الرئيسة والمرجعية: في **LDS-DMG-101**\n- تنميط جدول للاكتمال والتكرار: في **LDS-DMG-203**، ونفترضه هنا\n- شبكة المشرفين وحقوق القرار عمومًا: في **LDS-DMG-201**، ونأخذ منها اليوم قائمة الإشراف وحدها\n\n> **الجديد هنا.** أن تقيس المطابقة بأرقام، وتكوّن السجل الذهبي بقواعد، وتصدر قوائم الرموز بإصدارات.","notes":"شريحة تذكير فقط. إن لم يمر أحد بالتنميط فأحِله إلى المقرر 203 بعد الورشة؛ المختبرات لا تحتاج أكثر من قراءة جدول.","minutes":null,"lo":["LO1"]},{"id":"three-kinds","n":6,"title":"المورد بيانات رئيسة، والمنطقة بيانات مرجعية، والفاتورة معاملة","kind":"content","session":1,"hash":"67e51500","md":"#### [day1#three-kinds] المورد بيانات رئيسة، والمنطقة بيانات مرجعية، والفاتورة معاملة\n\n*ثلاثة أنواع*\n\n- **بيانات رئيسة.** الكيانات التي تتكرر في كل عملية: المورد، والطالب، والمريض، والأصل. قليلة التغير، كثيرة الاستعمال.\n- **بيانات مرجعية.** قوائم القيم المسموح بها: المناطق، وأنشطة الموردين، والعملات. تصنّف البيانات الرئيسة والمعاملات.\n- **بيانات المعاملات.** الأحداث: أمر شراء، وفاتورة، ودفعة. تشير إلى المورد ولا تعرّفه.\n\n> **أين يقع الخطأ.** إصلاح الفواتير واحدة واحدة، والسبب أن المورد مسجل ثلاث مرات.","notes":"اسأل: في جامعة السَّمُر، أي هذه في ملف الدفعات؟ الدفعة معاملة، ورقم المورد فيها يشير إلى بيانات رئيسة، ورمز المنطقة بيانات مرجعية.\n\nالمصدر: ضوابط مكتب إدارة البيانات الوطنية، مجال إدارة البيانات الرئيسة والمرجعية (يطلب تحديد كائنات البيانات الرئيسة والمرجعية ومصادرها).","minutes":null,"lo":["LO1"]},{"id":"one-supplier-three-ways","n":7,"title":"جهة شريكة واحدة، ثلاث كتابات، ثلاثة أرقام","kind":"content","session":1,"hash":"680e2bb3","md":"#### [day1#one-supplier-three-ways] جهة شريكة واحدة، ثلاث كتابات، ثلاثة أرقام\n\n*في سجل آخر من الجامعة*\n\n| النظام | الاسم كما كُتب | رقم الجهة |\n| --- | --- | --- |\n| نظام المنح | مركز الرَّواسخ للدراسات | P-0412 |\n| سجل الاتفاقيات | Al-Rawasikh Center for Studies | AG-118 |\n| نظام الباحثين الزائرين | مركز الرواسخ للدراسات | V-2203 |\n\nوكالة البحث تعد الجهات الشريكة ثلاث مرات، ولا تعرف كم اتفاقية لها مع الجهة نفسها.","notes":"هذا مثال من سجل الجهات الشريكة في وكالة البحث بالجامعة، لا من ملفات المختبر. سنعود إليه في أمثلة الجلسة كلها، والمختبر على سجل الموردين.\n\nالسؤال للقاعة: لو سُئلت الوكالة عن عدد شركائها، أي رقم تعطي؟","minutes":null,"lo":["LO1","LO2"]},{"id":"hub-styles","n":8,"title":"أربعة أنماط تختلف في مكان الإنشاء والتعديل","kind":"content","session":1,"hash":"31f470be","md":"#### [day1#hub-styles] أربعة أنماط تختلف في مكان الإنشاء والتعديل\n\n*أنماط التنفيذ*\n\n| النمط | أين يُنشأ السجل ويُعدّل | ما في المحور |\n| --- | --- | --- |\n| **السجل المرجعي** (registry) | في المصادر كما هي | فهرس بالمعرفات وروابط إلى المصادر |\n| **التوحيد** (consolidation) | في المصادر، وتُنسخ إلى المحور في اتجاه واحد | سجل ذهبي للقراءة والتقارير |\n| **التعايش** (coexistence) | في المصادر، والمزامنة في الاتجاهين | سجل ذهبي يعود إلى المصادر |\n| **المركزي** (centralised) | في المحور وحده | المصدر الوحيد، والأنظمة تقرأ منه |\n\n> **في الضوابط الوطنية.** المحور المركزي هو المطلوب للبيانات المرجعية.","notes":"الأنماط الأربعة كما تصفها ضوابط مكتب إدارة البيانات الوطنية في مواصفة تصميم محور البيانات الرئيسة والمرجعية: السجل المرجعي، والمستودع (وهو نمط التوحيد)، والتعايش، والمركزي. وتنص المواصفة نفسها على الإدارة المركزية للبيانات المرجعية. النسخة العربية من الضوابط تسمي المحور «مركز البيانات»، ونقول هنا «المحور» اختصارًا.\n\nالمصدر: ضوابط ومواصفات إدارة البيانات الوطنية وحوكمتها وحماية البيانات الشخصية، مجال إدارة البيانات الرئيسة والمرجعية، المواصفة RMD.2.2.","minutes":null,"lo":["LO1"]},{"id":"choose-style","n":9,"title":"ثلاثة أسئلة تختار النمط قبل أي أداة","kind":"content","session":1,"hash":"b37cfe45","md":"#### [day1#choose-style] ثلاثة أسئلة تختار النمط قبل أي أداة\n\n*كيف تختار*\n\n1. **1 · من يغيّر السجل؟** إن بقيت المصادر تغيّر، فليس مركزيًا\n2. **2 · هل تعود القيم إلى المصادر؟** إن لزم ذلك فهو تعايش\n3. **3 · ماذا يحتاج المستهلك؟** فهرس يكفي، أو سجل ذهبي للقراءة\n\n> **الخلاصة.** النمط قرار ملكية قبل أن يكون قرار تقنية.","notes":"اضغط مرة لكل سؤال. الحالة المعتادة في الجهات: يبدأ التوحيد للتقارير، ثم ينتقل إلى التعايش حين يطلب المالك تصحيح المصادر من السجل الذهبي.\n\nالخطأ الشائع: اختيار المركزي لأنه «الأنظف»، دون أن يوافق أصحاب الأنظمة على التوقف عن إنشاء السجلات.","minutes":null,"lo":["LO1"]},{"id":"styles-exercise","n":10,"title":"اكتب لكل موقف النمط وسببه في سطر، ثم نصوّت","kind":"content","session":1,"hash":"2bfe16b8","md":"#### [day1#styles-exercise] اكتب لكل موقف النمط وسببه في سطر، ثم نصوّت\n\n*تمرين: أربعة مواقف*\n\n- أربعة مواقف من جهات مختلفة، كل منها في شريحة\n- اكتب أولًا النمط وسببه على ورقتك أو في labs/files/styles_worksheet.txt، ثم صوّت\n- الهدف: ثلاثة مواقف من أربعة تطابق المرجع، وسبب لكل اختيار\n\n> **دون أي أداة ذكاء اصطناعي.** السبب يُكتب بكلماتك.","notes":"امنح ثماني دقائق للكتابة قبل أول تصويت، ثم صوّت على الشرائح الأربع تباعًا. اجمع الأوراق: هي دليل الناتج الأول من نواتج التعلم (ثلاثة من أربعة مع سبب).\n\nالمرجع: أ سجل مرجعي، ب توحيد، ج تعايش، د مركزي. لا تكشف المرجع قبل أن يكتب الجميع.","minutes":null,"lo":["LO1"]},{"id":"style-scenario-a","n":11,"title":"أي نمط يناسب هذه الجهة؟","kind":"quiz","session":1,"hash":"39778ce5","md":"#### [day1#style-scenario-a] أي نمط يناسب هذه الجهة؟\n\n*الموقف أ*\n\n**سؤال:** هيئة لها خمسة أنظمة قديمة لكل منها مالك يرفض أي تغيير. تريد أن تعرف في أي نظام يوجد ملف المستفيد قبل الرد على طلبه، ولا تحتاج تقريرًا موحدًا.\n\n- أ. السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة\n- ب. التوحيد: تُنسخ السجلات إلى المحور ويُبنى منها سجل ذهبي\n- ج. التعايش: مزامنة في الاتجاهين مع الأنظمة\n- د. المركزي: إنشاء الملف في المحور وحده","notes":"الإجابة: أ. من اختار التوحيد اسأله: من سيقرأ السجل الذهبي؟ لا أحد في هذا الموقف.","minutes":null,"lo":["LO1"]},{"id":"style-scenario-b","n":12,"title":"أي نمط يناسب هذه الجهة؟","kind":"quiz","session":1,"hash":"59cb3468","md":"#### [day1#style-scenario-b] أي نمط يناسب هذه الجهة؟\n\n*الموقف ب*\n\n**سؤال:** شركة نقل لها ثلاثة أنظمة للعملاء. الإدارة تريد تقريرًا شهريًا موحدًا بعدد العملاء وقيمة تعاملاتهم، وكل نظام يبقى مكان إدخال العميل وتعديله.\n\n- أ. السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة الثلاثة\n- ب. التعايش: يعود السجل الذهبي إلى الأنظمة\n- ج. التوحيد: نسخ في اتجاه واحد وسجل ذهبي للتقارير\n- د. المركزي: يُدخل العميل في المحور وحده","notes":"الإجابة: ج. هذا نمط الجامعة اليوم: السجل الذهبي للموردين يُقرأ ولا يعود إلى الأنظمة الثلاثة بعد.","minutes":null,"lo":["LO1"]},{"id":"style-scenario-c","n":13,"title":"أي نمط يناسب هذه الجهة؟","kind":"quiz","session":1,"hash":"9a3bbb01","md":"#### [day1#style-scenario-c] أي نمط يناسب هذه الجهة؟\n\n*الموقف ج*\n\n**سؤال:** مستشفى يصحح عنوان المريض في المحور بعد التحقق منه، ويريد أن يظهر التصحيح في نظام المواعيد ونظام الفوترة، مع بقاء الإدخال ممكنًا فيهما.\n\n- أ. السجل المرجعي: فهرس يشير إلى النظامين\n- ب. التعايش: مزامنة السجل في الاتجاهين\n- ج. التوحيد: نسخ من النظامين إلى المحور\n- د. المركزي: الإدخال في المحور وحده","notes":"الإجابة: ب. نبّه إلى الكلفة: المزامنة في الاتجاهين تحتاج قواعد لحل التعارض حين يتغير السجل في مكانين.","minutes":null,"lo":["LO1"]},{"id":"style-scenario-d","n":14,"title":"أي نمط يناسب هذه الجهة؟","kind":"quiz","session":1,"hash":"b035d5b2","md":"#### [day1#style-scenario-d] أي نمط يناسب هذه الجهة؟\n\n*الموقف د*\n\n**سؤال:** جهة تستبدل أنظمة المشتريات الثلاثة بنظام واحد. قرر المالك أن تسجيل المورد وتعديله يتمان في وحدة واحدة، والأنظمة الأخرى تقرأ منها فقط.\n\n- أ. التوحيد: تُنسخ السجلات من الأنظمة إلى المحور\n- ب. التعايش: مزامنة مع الأنظمة في الاتجاهين\n- ج. السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة الثلاثة\n- د. المركزي: المحور هو المصدر الوحيد","notes":"الإجابة: د. أخيرًا اجمع الأوراق: من طابق ثلاثة من أربعة مع سبب مكتوب حقق دليل الناتج الأول.","minutes":null,"lo":["LO1"]},{"id":"matching-pipeline","n":15,"title":"خمس خطوات بين السجلات الخام والقرار","kind":"content","session":1,"hash":"22f22e94","md":"#### [day1#matching-pipeline] خمس خطوات بين السجلات الخام والقرار\n\n*المطابقة*\n\n1. **1 · التوحيد** صيغة واحدة للاسم والرقم\n2. **2 · التكتيل** أي الأزواج تُقارن\n3. **3 · المقارنة** مستوى اتفاق لكل حقل\n4. **4 · الدرجة** احتمال أن يكون الزوج واحدًا\n5. **5 · العتبتان** دمج، مراجعة، فصل\n\n> **أين يقع الخطأ.** قفزة إلى الخطوة 5 بأداة جاهزة، دون قياس.","notes":"ملف القواعد في المختبر مرتب بالخطوات نفسها: standardise وnumbers، ثم blocking، ثم compare، ثم thresholds. الأداة Splink على DuckDB، وهي مثال؛ تعمل الفكرة نفسها في OpenRefine أو بأي محرك ربط سجلات.","minutes":null,"lo":["LO2"]},{"id":"arabic-normalisation","n":16,"title":"أربع كتابات لاسم واحد تصبح كتابة واحدة","kind":"content","session":1,"hash":"b9d23fdf","md":"#### [day1#arabic-normalisation] أربع كتابات لاسم واحد تصبح كتابة واحدة\n\n*الكتابة العربية*\n\n| كما كُتب | ما الذي يختلف |\n| --- | --- |\n| مؤسسة الرواسخ | الصيغة المرجعية |\n| مؤسسه الرواسخ | هاء بدل التاء المربوطة |\n| مُؤسَّسة الرَّواسخ | حركات وشدة |\n| مؤسـسة الرواسخ | تطويل |\n\nومعها الهمزة على الألف (أ، إ، آ) والألف المقصورة في آخر الكلمة. كل خيار في ملف القواعد يوحّد واحدة منها.","notes":"شغّلت الأداة على الكتابات الأربع بخيارات التوحيد كلها فأعطت صيغة واحدة: «مؤسسه الرواسخ». هذا من سجل الجهات الشريكة، لا من ملفات المختبر.\n\nالخطأ الشائع: توحيد الهمزة في كل موضع ينسى أن الهدف المقارنة لا التصحيح: لا تكتب الصيغة الموحدة في السجل الذهبي.","minutes":null,"lo":["LO2"]},{"id":"legal-forms","n":17,"title":"احذف ما لا يميّز جهة من أخرى، واحتفظ بما يميّز","kind":"content","session":1,"hash":"0c618dd4","md":"#### [day1#legal-forms] احذف ما لا يميّز جهة من أخرى، واحتفظ بما يميّز\n\n*كلمات لا تميّز*\n\n- **يُحذف قبل المقارنة.** الشكل القانوني: شركة، مؤسسة، المحدودة، ذ.م.م، Co., Ltd, LLC, Est.، والنقاط والشرطات.\n- **يُحذف بحذر.** كلمة النشاط (للدراسات، Center for Studies). حذفها يقرّب الترجمة من الأصل، ويقرّب أيضًا جهتين شقيقتين بنشاطين.\n\n> **أين يقع الخطأ.** قائمة حذف طويلة ترفع الاستدعاء وتُسقط الدقة دون أن يلاحظ أحد.","notes":"اسأل: «مركز الرواسخ للدراسات» و«مركز الرواسخ للتدريب»، جهة واحدة أم اثنتان؟ قد تكونان شقيقتين لهما رقمان مختلفان. لهذا يفصل ملف القواعد بين ما يُحذف من الاسم وما يُحذف من المفتاح العابر للغتين وحده.","minutes":null,"lo":["LO2"]},{"id":"cross-script-key","n":18,"title":"المفتاح العابر للغتين يقارن الحروف الساكنة لا الكتابة","kind":"content","session":1,"hash":"ed2f6bb8","md":"#### [day1#cross-script-key] المفتاح العابر للغتين يقارن الحروف الساكنة لا الكتابة\n\n*العربية والإنجليزية*\n\n| الاسم | بعد التوحيد | المفتاح |\n| --- | --- | --- |\n| مركز الرَّواسخ | الرواسخ | rsk |\n| Al-Rawasikh Center | al rawasikh | rsk |\n| El Rawasekh Centre | al rawasekh | rsk |\n\nتُحذف أداة التعريف والحروف الصوتية، ويُجمع كل حرف عربي مع نظيره اللاتيني في صنف واحد: خ مع kh، وق مع q وk.","notes":"الأرقام من تشغيل دالة المفتاح في أداة المقرر على هذه الأسماء، بعد حذف «مركز» وcenter وcentre. الصيغ الإنجليزية الثلاث تعطي المفتاح نفسه.\n\nحدود الفكرة: الترجمة لا تُنقل بالحروف. «الحديثة» وModern لا يلتقيان في مفتاح واحد. لذلك يبقى المفتاح مقارنة ضمن مقارنات، لا قاعدة دمج.","minutes":null,"lo":["LO2"]},{"id":"blocking","n":19,"title":"لا تقارن كل زوج: قارن من يشتركان في مفتاح","kind":"content","session":1,"hash":"60248089","md":"#### [day1#blocking] لا تقارن كل زوج: قارن من يشتركان في مفتاح\n\n*التكتيل*\n\n- **بلا تكتيل.** 20,000 سجل تعني 199,990,000 زوج. أغلبها لا يستحق النظر.\n- **بتكتيل.** تُقارن الأزواج التي تتفق في مفتاح واحد على الأقل: الاسم الموحد، أو المفتاح العابر للغتين، أو رقم السجل.\n\n> **أين يقع الخطأ.** الزوج الذي لا يجمعه أي مفتاح لن يُقارن أبدًا: يضيع من الاستدعاء قبل أي درجة.","notes":"العدد محسوب: 20,000 × 19,999 ÷ 2. هذا حجم ملف المختبر، لا نتيجة.\n\nالقاعدة العملية: أضف مفاتيح تكتيل حتى يتوقف الاستدعاء عن الارتفاع، وراقب عدد الأزواج المقارنة.","minutes":null,"lo":["LO2"]},{"id":"deterministic-probabilistic","n":20,"title":"القاعدة الحتمية تحكم وحدها، والاحتمالية تجمع الأدلة","kind":"content","session":1,"hash":"a46c5c8f","md":"#### [day1#deterministic-probabilistic] القاعدة الحتمية تحكم وحدها، والاحتمالية تجمع الأدلة\n\n*نوعان من القواعد*\n\n- **حتمية.** «الرقم نفسه والهاتف نفسه يعني الجهة نفسها». واضحة وسريعة، وتنهار حين يتكرر رقم لا يعني شيئًا، مثل N/A في رقم الجهة.\n- **احتمالية (Fellegi-Sunter).** لكل حقل وزن من نسبتين: كم مرة يتفق في الأزواج المتطابقة (m)، وكم مرة يتفق مصادفة (u).\n\nمثال من سجل الجهات الشريكة: m = 0.9 وu = 0.002 لرقم الجهة، فوزن الاتفاق +8.81 ووزن الاختلاف -3.32.","notes":"الوزن لوغاريتم للأساس 2 للنسبة: log2(0.9 ÷ 0.002) = 8.81، وlog2(0.1 ÷ 0.998) = -3.32، محسوبان في سكربت أرقام الشرائح. Splink يقدّر m بالتعظيم المتوقع (EM) دون الأزواج الموسومة، ويقدّر u من عينة عشوائية.\n\nقبل أي قاعدة حتمية: رتّب قيم العمود المعرّف بتكرارها؛ القيمة الأكثر تكرارًا إنذار بقيمة تعني «لا أعرف»، وقاعدة «الرقم نفسه» تجمع كل من كُتبت لهم في جهة واحدة. ووحّد الأرقام (المسافات والشرطات) قبل المقارنة. في المختبر يجد المشاركون القيمة في ملف الموردين بأنفسهم: لا تذكرها.\n\nالمصدر: Splink، نموذج Fellegi-Sunter (دليل الموضوع).","minutes":null,"lo":["LO2"]},{"id":"precision-recall","n":21,"title":"الدقة: كم من دمجك صحيح. الاستدعاء: كم من الصحيح دمجت","kind":"content","session":1,"hash":"2f70967a","md":"#### [day1#precision-recall] الدقة: كم من دمجك صحيح. الاستدعاء: كم من الصحيح دمجت\n\n*القياس*\n\n| سجل الجهات الشريكة، 40 زوجًا موسومًا (18 متطابقًا) | عتبة 0.9 | عتبة 0.6 |\n| --- | --- | --- |\n| قالت الأداة «متطابق» وهو متطابق (TP) | 14 | 17 |\n| قالت «متطابق» وهو غير متطابق (FP) | 1 | 3 |\n| فاتها متطابق (FN) | 4 | 1 |\n| **الدقة** = TP ÷ (TP + FP) | 93.3% | 85.0% |\n| **الاستدعاء** = TP ÷ (TP + FN) | 77.8% | 94.4% |","notes":"الأرقام محسوبة في سكربت أرقام الشرائح: 14 ÷ 15 = 93.3%، و14 ÷ 18 = 77.8%، و17 ÷ 20 = 85.0%، و17 ÷ 18 = 94.4%.\n\nاسأل: أي خطأ أسوأ للموردين؟ الدمج الخاطئ يدفع لمورد مال غيره أو يحجب منشأة؛ الفوت يترك ازدواجًا تصلحه المراجعة. لذلك تُقرأ الدقة عند عتبة الدمج الآلي أولًا.","minutes":null,"lo":["LO2"]},{"id":"by-script","n":22,"title":"رقم واحد للكل يخفي الأزواج العربية الإنجليزية","kind":"content","session":1,"hash":"48d142ca","md":"#### [day1#by-script] رقم واحد للكل يخفي الأزواج العربية الإنجليزية\n\n*التفصيل*\n\n- قسّم الأزواج الموسومة: عربي مع عربي، وإنجليزي مع إنجليزي، وعربي مع إنجليزي\n- كل صنف له أخطاء غير أخطاء الآخر: الهمزة والتاء في الأول، والتهجئة في الثاني، والترجمة في الثالث\n- صنف صغير ضعيف يختفي في متوسط جيد\n\n> **ما يُسلَّم.** جدول جودة عند عتبتين، مفصّل بحسب نظام الكتابة: هذا دليل الناتج الثاني.","notes":"من يعرض رقمًا واحدًا لا يستطيع أن يجيب: هل نخدم الموردين الذين يكتبون أسماءهم بالإنجليزية كما نخدم غيرهم؟ هذا سؤال إنصاف أيضًا، لا جودة فقط.","minutes":null,"lo":["LO2"]},{"id":"two-thresholds","n":23,"title":"عتبتان تصنعان ثلاث مناطق، والوسطى عمل بشري","kind":"content","session":1,"hash":"17ae5f57","md":"#### [day1#two-thresholds] عتبتان تصنعان ثلاث مناطق، والوسطى عمل بشري\n\n*العتبتان*\n\n- **فوق العتبة العليا.** دمج آلي. الدقة هنا يجب أن تكون عالية جدًا.\n- **بين العتبتين.** قائمة المراجعة. حجمها عبء المشرفين كل أسبوع.\n- **تحت العتبة الدنيا.** لا دمج. ما فات هنا لا يراه أحد.\n\n> **أين يقع الخطأ.** اختيار العتبة من الدقة وحدها، دون عدّ الأزواج التي ستقع في الوسط.","notes":"اربط هذا بالجلسة الرابعة: حجم المنطقة الوسطى هو حمل قائمة الإشراف، وقرار العتبة قرار موارد.\n\nالأداة في المختبر تطبع «auto matches» و«pairs between the thresholds»: الرقم الثاني هو حجم القائمة.","minutes":null,"lo":["LO2","LO5"]},{"id":"check-matching","n":24,"title":"ما أول ما تفعله؟","kind":"quiz","session":1,"hash":"8c323712","md":"#### [day1#check-matching] ما أول ما تفعله؟\n\n*نقطة تحقق*\n\n**سؤال:** في سجل الجهات الشريكة، الاستدعاء على الأزواج العربية الإنجليزية 31% وعلى الأزواج العربية 88%. الدقة فوق 95% في الصنفين. ماذا تغيّر أولًا؟\n\n- أ. خفض عتبة الدمج من 0.9 إلى 0.6\n- ب. تشغيل توحيد الهمزة والتاء المربوطة\n- ج. إضافة المفتاح العابر للغتين إلى التكتيل\n- د. قاعدة حتمية تدمج كل زوج يتفق في الحرف الأول من الاسم","notes":"الإجابة: ج. الأرقام في السؤال مثال مفترض من سجل الجهات الشريكة. من اختار خفض العتبة: اسأله كم زوجًا عربيًا إنجليزيًا قورن أصلًا.","minutes":null,"lo":["LO2"]},{"id":"lab-1-1","n":25,"title":"ضبط قواعد المطابقة على 500 زوج موسوم","kind":"lab","session":1,"hash":"fa58ce45","md":"#### [day1#lab-1-1] ضبط قواعد المطابقة على 500 زوج موسوم\n\nالمختبر 1.1 · 105 دقائق\n\nتبدأ من ملف قواعد ضعيف على 20,000 سجل مورد، فتضيف توحيد الأسماء والمفتاح العابر للغتين والتكتيل والقواعد الحتمية وقاعدة الحجز، وتخرج بملف قواعد وجدول لجودة المطابقة عند عتبتين بحسب نظام الكتابة\n\n[D1_1_matching.html](https://sdaiaacademy.github.io/lds-dmg-208/labs/D1_1_matching.html)\n\n- [ ] شغّل ملف البداية واقرأ جدول الجودة (10 د)\n- [ ] وحّد الكتابة العربية وأعد القياس (20 د)\n- [ ] وحّد الأسماء اللاتينية واحذف الأشكال القانونية (15 د)\n- [ ] أضف المفتاح العابر للغتين والتكتيل عليه (20 د)\n- [ ] أصلح الأرقام والقيم البديلة وأضف قاعدة الحجز (15 د)\n- [ ] اختر العتبتين واحفظ جدول الجودة (15 د)\n- [ ] افتح لوحة العناقيد وسجّل خطأين (10 د)\n- [ ] ✱ إضافي: جرّب عتبتين أخريين، وقدّر كم زوجًا ينتقل بين الدمج الآلي وقائمة المراجعة","notes":"المساعد مرشد فقط في هذا المختبر، ولا يُلصق فيه شيء من الملفات. راقب: من حذف كلمات النشاط من الاسم نفسه (سترتفع الأخطاء)، ومن لم يجد القيمة البديلة في رقم السجل. ذكّر الجميع أن سجل التشغيل out/run_log.jsonl يُسلّم.\n\nمن تعطل تثبيته يعمل في Colab. من تأخر يأخذ ملف المرجع بعد المختبر ليكمل الخطوة 7.","minutes":null,"lo":[]},{"id":"debrief-1-1","n":26,"title":"من 42.7% إلى 96.9% استدعاء، بخطوات تعرف أثر كل منها","kind":"content","session":1,"hash":"a40827b3","md":"#### [day1#debrief-1-1] من 42.7% إلى 96.9% استدعاء، بخطوات تعرف أثر كل منها\n\n*بعد المختبر 1.1*\n\n| الخطوة (عتبة الدمج) | الدقة | الاستدعاء | عربي مع إنجليزي |\n| --- | --- | --- | --- |\n| ملف البداية (0.9) | 81.6% | 42.7% | 43.6% |\n| الكتابة العربية والأشكال القانونية (0.9) | 85.5% | 56.5% | 43.6% |\n| المفتاح العابر للغتين (0.9) | 84.1% | 81.2% | 73.1% |\n| الأرقام والقيم البديلة (0.9) | 90.6% | 93.1% | 88.5% |\n| الحجز والتكتيل بالهاتف والبريد (0.95) | 97.3% | 96.9% | 96.2% |","notes":"الأرقام من تشغيل الحل المرجعي (solutions/check.py 1.1) على 500 زوج. في ملف البداية 40,403 تطابقات حتمية سببها 272 سجلًا رقمها 0000000000؛ بعد إعلانها قيمة بديلة صارت 5,454، وبعد اشتراط الهاتف مع الرقم 4,679.\n\nعند العتبة الدنيا 0.5 تنخفض الدقة إلى 89.7%: الشركات الشقيقة تقع هناك، وقائمة المراجعة فيها 699 زوجًا. اطلب من مشاركين اثنين عرض خطأين من لوحة العناقيد.","minutes":null,"lo":["LO2"]},{"id":"s2","n":27,"title":"السجلات الذهبية وقواعد الاستبقاء","kind":"section","session":2,"hash":"a18bdb0c","md":"#### [day1#s2] السجلات الذهبية وقواعد الاستبقاء\n\n*الجلسة 2*\n\n- يكتب قاعدة استبقاء لكل سمة ويبرّرها من مصفوفة موثوقية المصادر\n- يكشف التاريخ الذي لا يدل على تحديث من المورد، ويستبعده من قاعدة الحداثة\n- يحتفظ بالإسناد الترافقي وتاريخ القيم، ويراجع قواعد زميل بقائمة فحص","notes":"","minutes":null,"lo":["LO3"]},{"id":"golden-record","n":28,"title":"أفضل قيمة لكل سمة، مع مصدرها","kind":"content","session":2,"hash":"70320dda","md":"#### [day1#golden-record] أفضل قيمة لكل سمة، مع مصدرها\n\n*السجل الذهبي*\n\n| السمة | القيمة المختارة | من أين |\n| --- | --- | --- |\n| الاسم العربي | مركز الرواسخ للدراسات | نظام المنح |\n| الاسم الإنجليزي | Al-Rawasikh Center for Studies | سجل الاتفاقيات |\n| المدينة | أبها | نظام الباحثين الزائرين، الأحدث |\n\n> **الخلاصة.** السجل الذهبي لا يأتي من نظام واحد: كل سمة تأتي من حيث هي أوثق.","notes":"المثال من سجل الجهات الشريكة. لاحظ عمود «من أين»: المالك يريد أن يعرف مصدر كل قيمة، وهذا ما يسميه المختبر الإسناد إلى السجل المصدري.\n\nالضوابط الوطنية تطلب قواعد موثقة للمطابقة والدمج لتكوين السجل الذهبي (RMD.2.1 وRMD.2.4).","minutes":null,"lo":["LO3"]},{"id":"survivorship-rules","n":29,"title":"خمس قواعد تكفي معظم السمات","kind":"content","session":2,"hash":"d92e8d06","md":"#### [day1#survivorship-rules] خمس قواعد تكفي معظم السمات\n\n*قواعد الاستبقاء*\n\n| القاعدة | تختار | تناسب |\n| --- | --- | --- |\n| أولوية المصدر | أول مصدر يحمل قيمة، بترتيب مكتوب | ما يتحقق منه مصدر بعينه |\n| الأحدث | قيمة آخر تحديث | ما يتغير: العنوان والهاتف |\n| الأكثر تكرارًا | ما تتفق عليه أغلب المصادر | معرّف ينسخه الجميع |\n| الأكمل | القيمة الأطول أو الأتم | نص يُختصر أحيانًا |\n| قرار المشرف | ما يكتبه المشرف ويُحفظ | ما لا تحسمه قاعدة |","notes":"أداة المختبر تنفذ الثلاث الأولى. الأكمل وقرار المشرف يُكتبان في وثيقة القواعد إن احتجتهما.\n\nاسأل: لماذا لا تصلح قاعدة واحدة للسجل كله؟ لأن من يتحقق من الاسم ليس من يتحقق من الهاتف.","minutes":null,"lo":["LO3"]},{"id":"trust-matrix","n":30,"title":"الثقة بالمصدر تختلف من سمة إلى سمة","kind":"content","session":2,"hash":"d7adec0e","md":"#### [day1#trust-matrix] الثقة بالمصدر تختلف من سمة إلى سمة\n\n*مصفوفة الموثوقية*\n\n| سجل الجهات الشريكة | المنح | الاتفاقيات | الباحثون الزائرون |\n| --- | --- | --- | --- |\n| الاسم العربي | 1 | 3 | 2 |\n| الاسم الإنجليزي | 3 | 1 | 2 |\n| رقم الجهة | 1 | 2 | 3 |\n| المدينة | 3 | 2 | 1 |\n\n1 الأوثق. كل رقم يحتاج سببًا: من يكتب القيمة في ذلك المصدر، ومن يتحقق منها.","notes":"الأسباب في هذا المثال: المنح تأخذ الاسم العربي من خطاب الجهة الرسمي؛ الاتفاقيات تُوقّع بالاسم الإنجليزي؛ الباحثون الزائرون يحدّثون عنوان الجهة في كل زيارة.\n\nالمصفوفة بلا أسباب رأي؛ بأسبابها قاعدة يمكن مراجعتها.","minutes":null,"lo":["LO3"]},{"id":"recency-trap","n":31,"title":"«آخر تحديث» قد يعني آخر نقل، لا آخر تغيير","kind":"content","session":2,"hash":"edffbd3a","md":"#### [day1#recency-trap] «آخر تحديث» قد يعني آخر نقل، لا آخر تغيير\n\n*فخ التاريخ*\n\n- نُقل سجل الاتفاقيات إلى نظام جديد في يوم واحد\n- صار تاريخ التحديث في كل سجلاته يوم النقل\n- قاعدة «الأحدث» تفضّله على كل ما قبل ذلك اليوم، وفيه عناوين قديمة\n\n- **كيف تكشفه.** رتّب التواريخ لكل مصدر. يوم واحد يتكرر في آلاف السجلات ليس يوم تحديث.\n\n> **الإصلاح.** استبعد تواريخ ذلك المصدر من قاعدة الحداثة، أو اجعله آخر الترتيب عند التعادل.","notes":"اسأل: أي مصدر عندكم نُقل مرة واحدة من نظام قديم؟ غالبًا يعرف كل مشارك واحدًا.\n\nهذا مثال من سجل الجهات الشريكة؛ في المختبر ابحث عن المصدر الذي يحمل مثل هذا بنفسك.","minutes":null,"lo":["LO3"]},{"id":"xref-history","n":32,"title":"احتفظ بما يلزم لفك الدمج ولشرح أي قيمة","kind":"content","session":2,"hash":"0c6c202b","md":"#### [day1#xref-history] احتفظ بما يلزم لفك الدمج ولشرح أي قيمة\n\n*الإسناد الترافقي والتاريخ*\n\n- **الإسناد الترافقي (cross-reference).** لكل سجل ذهبي قائمة السجلات المصدرية خلفه. بدونها لا يُفك دمج خاطئ ولا تُحدّث المصادر.\n- **التاريخ (history).** كل تغيير في قيمة: القديمة، والجديدة، والقاعدة، وملف القواعد. بدونه لا يعرف المالك لماذا تغير عنوان مورد.\n\n> **في الضوابط الوطنية.** متطلبات المحور تشمل تتبع التغييرات على السجلات عبر الزمن، وسجلًا لطلبات التغيير وقراراتها.","notes":"المواصفتان RMD.2.5 (إدارة الإصدارات في متطلبات المحور) وRMD.6.1 (سجل طلبات التغيير). أداة المختبر تكتب الإسناد في golden_xref.csv والتاريخ في golden_history.csv.","minutes":null,"lo":["LO3"]},{"id":"rule-document","n":33,"title":"صفحة واحدة يقرؤها المالك ويراجعها زميل","kind":"content","session":2,"hash":"04bb2d58","md":"#### [day1#rule-document] صفحة واحدة يقرؤها المالك ويراجعها زميل\n\n*وثيقة القواعد*\n\n- لكل سمة: القاعدة، وسببها، ورقمها على العينة المتحقق منها\n- ما بقي خطأ، ولماذا لا تصلحه قاعدة، وإلى أين يُحال\n- من يغيّر القواعد، ومتى، وكيف يُسجّل التغيير\n\n> **مراجعة الزميل بثلاثة أسئلة.** لكل سمة قاعدة وسبب؟ تاريخ لا يدل على تحديث؟ مصدر كل قيمة معروف؟","notes":"الوثيقة المراجَعة هي دليل الناتج الثالث مع جدول السجلات الذهبية. اطلب أن يكتب المراجع اسمه وملاحظاته في آخرها.","minutes":null,"lo":["LO3"]},{"id":"check-survivorship","n":34,"title":"أي قاعدة للهاتف؟","kind":"quiz","session":2,"hash":"574dcb0f","md":"#### [day1#check-survivorship] أي قاعدة للهاتف؟\n\n*نقطة تحقق*\n\n**سؤال:** في سجل الجهات الشريكة يحدّث الباحثون الزائرون هاتف الجهة في كل زيارة، والمنح تنسخه مرة عند فتح الملف، والاتفاقيات نُقلت دفعة واحدة فتاريخ كل سجلاتها يوم النقل. أي قاعدة للهاتف؟\n\n- أ. أولوية المصدر: المنح أولًا، لأنها الأوثق في الاسم\n- ب. الأحدث، بتواريخ المصادر الثلاثة كما هي\n- ج. الأكثر تكرارًا بين المصادر الثلاثة\n- د. الأحدث، مع استبعاد تواريخ الاتفاقيات","notes":"الإجابة: د. من اختار «الأكثر تكرارًا»: اسأله ماذا يحدث حين يغيّر الشريك هاتفه ويبقى القديم في مصدرين.","minutes":null,"lo":["LO3"]},{"id":"lab-1-2","n":35,"title":"السجلات الذهبية لثلاثة آلاف مورد","kind":"lab","session":2,"hash":"1c0efa0d","md":"#### [day1#lab-1-2] السجلات الذهبية لثلاثة آلاف مورد\n\nالمختبر 1.2 · 105 دقائق\n\nتكتب قواعد الاستبقاء لسبع سمات على عناقيد معتمدة ومصفوفة موثوقية، وتقيسها على 60 موردًا تحقق منهم المشرفون، وتخرج بجدول السجلات الذهبية ووثيقة قواعد راجعها زميل\n\n[D1_2_golden.html](https://sdaiaacademy.github.io/lds-dmg-208/labs/D1_2_golden.html)\n\n- [ ] اقرأ مصفوفة الموثوقية وملاحظات المشرفين (10 د)\n- [ ] شغّل قواعد البداية واقرأ النتيجة على الستين (10 د)\n- [ ] اكتب قاعدة لكل سمة من السمات السبع (30 د)\n- [ ] اكشف فخ التواريخ وحسم التعادل (15 د)\n- [ ] أعد التشغيل واقرأ الإسناد الترافقي والتاريخ (15 د)\n- [ ] اكتب وثيقة القواعد (15 د)\n- [ ] تبادل الوثيقة مع زميل وراجعها (10 د)\n- [ ] ✱ إضافي: اكتب قاعدة لسمة لا تحملها ملفات المختبر، مثل رقم الحساب البنكي: من يملكها، ومن يغيّرها، ومن أي مصدر تؤخذ","notes":"يبدأ المختبر من عناقيد معتمدة، لا من ناتج المختبر 1.1، فلا يتأخر أحد بسبب الصباح. المساعد مرشد فقط. راقب من يغيّر قاعدتين معًا فلا يعرف أيهما أثّر. الخطوة 7 مراجعة زميل: اجعل الأزواج من طاولتين مختلفتين.","minutes":null,"lo":[]},{"id":"debrief-1-2","n":36,"title":"القواعد رفعت الصحيح من 346 إلى 379 قيمة من 420","kind":"content","session":2,"hash":"fbbd6e1b","md":"#### [day1#debrief-1-2] القواعد رفعت الصحيح من 346 إلى 379 قيمة من 420\n\n*بعد المختبر 1.2*\n\n| على 60 موردًا متحققًا منهم | البداية: المالية أولًا | الأحدث بكل التواريخ | المرجع |\n| --- | --- | --- | --- |\n| المدينة | 46 | 55 | 58 |\n| الهاتف | 38 | 50 | 51 |\n| الاسم الإنجليزي | 30 | 30 | 39 |\n| كل السمات السبع | 346 | 367 | 379 |","notes":"الأرقام من solutions/check.py 1.2. سجل المشاريع يحمل يوم النقل في كل سجلاته، فقاعدة «الأحدث» بلا استثناء أخذت منه مدنًا قديمة.\n\nما بقي خطأ في المرجع لا تصلحه قاعدة: اسم إنجليزي كتبه المورد بصيغة غير صيغة مستنداته، ومورد انتقل ولا يعرف انتقاله إلا سجل قديم. هذه حالات لقائمة الإشراف غدًا.","minutes":null,"lo":["LO3"]},{"id":"wrap-up","n":37,"title":"ثلاثة أمور تبقى معك","kind":"content","session":2,"hash":"f4a0e35c","md":"#### [day1#wrap-up] ثلاثة أمور تبقى معك\n\n*خلاصة اليوم 1*\n\n- **النمط قرار ملكية.** من يُنشئ السجل ومن يغيّره يحدد النمط قبل الأداة.\n- **المطابقة تُقاس.** دقة واستدعاء عند عتبتين، لكل نظام كتابة، على أزواج موسومة.\n- **السجل الذهبي بقواعد.** قاعدة لكل سمة بسببها، ومصدر لكل قيمة، وتاريخ لكل تغيير.","notes":"اطلب من كل مشارك أن يحفظ ملفي القواعد وسجل التشغيل: هي جزء من المختبرات المقيّمة ومن حزمة القرار.","minutes":null,"lo":[]},{"id":"next","n":38,"title":"اليوم 2: قوائم الرموز والإشراف على البيانات","kind":"content","session":2,"hash":"3666f2bc","md":"#### [day1#next] اليوم 2: قوائم الرموز والإشراف على البيانات\n\n*التالي*\n\nاحفظ my_rules.yml وmy_survivorship.yml وسجل التشغيل. اقرأ files/codes/change_requests.txt قبل الجلسة.","notes":"من لم يكمل المختبرين يكملهما في المنزل؛ مختبرا الغد يبدآن من ملفاتهما الخاصة ولا يحتاجان ناتج اليوم.","minutes":null,"lo":[]}],"activities":[{"id":"style-scenario-a-q1","slide":"style-scenario-a","type":"single","prompt":"هيئة لها خمسة أنظمة قديمة لكل منها مالك يرفض أي تغيير. تريد أن تعرف في أي نظام يوجد ملف المستفيد قبل الرد على طلبه، ولا تحتاج تقريرًا موحدًا.","options":[{"key":"أ","text":"السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة"},{"key":"ب","text":"التوحيد: تُنسخ السجلات إلى المحور ويُبنى منها سجل ذهبي"},{"key":"ج","text":"التعايش: مزامنة في الاتجاهين مع الأنظمة"},{"key":"د","text":"المركزي: إنشاء الملف في المحور وحده"}],"correct":[0],"explanation":"المطلوب معرفة المكان لا القيمة، والمصادر لا تتغير. الفهرس يكفي.","misconceptions":["","يبني سجلًا ذهبيًا لا يطلبه أحد هنا، ويضيف نسخة تحتاج صيانة","يفترض أن الأنظمة تقبل قيمًا عائدة من المحور، والملاك يرفضون التغيير","يتجاهل الملاك الذين يرفضون التوقف عن إنشاء السجلات في أنظمتهم"],"lo":["LO1"]},{"id":"style-scenario-b-q1","slide":"style-scenario-b","type":"single","prompt":"شركة نقل لها ثلاثة أنظمة للعملاء. الإدارة تريد تقريرًا شهريًا موحدًا بعدد العملاء وقيمة تعاملاتهم، وكل نظام يبقى مكان إدخال العميل وتعديله.","options":[{"key":"أ","text":"السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة الثلاثة"},{"key":"ب","text":"التعايش: يعود السجل الذهبي إلى الأنظمة"},{"key":"ج","text":"التوحيد: نسخ في اتجاه واحد وسجل ذهبي للتقارير"},{"key":"د","text":"المركزي: يُدخل العميل في المحور وحده"}],"correct":[2],"explanation":"القراءة الموحدة مطلوبة والإدخال يبقى في المصادر: نسخ في اتجاه واحد.","misconceptions":["الفهرس يدل على مكان السجل ولا يحسم أي القيم الصحيحة للتقرير","يضيف كتابة إلى الأنظمة لم يطلبها أحد، ومعها تعقيد المزامنة","","ينقل الإدخال من الأنظمة، والمطلوب أن يبقى الإدخال فيها"],"lo":["LO1"]},{"id":"style-scenario-c-q1","slide":"style-scenario-c","type":"single","prompt":"مستشفى يصحح عنوان المريض في المحور بعد التحقق منه، ويريد أن يظهر التصحيح في نظام المواعيد ونظام الفوترة، مع بقاء الإدخال ممكنًا فيهما.","options":[{"key":"أ","text":"السجل المرجعي: فهرس يشير إلى النظامين"},{"key":"ب","text":"التعايش: مزامنة السجل في الاتجاهين"},{"key":"ج","text":"التوحيد: نسخ من النظامين إلى المحور"},{"key":"د","text":"المركزي: الإدخال في المحور وحده"}],"correct":[1],"explanation":"التصحيح يعود إلى المصادر والإدخال يبقى فيها: هذا تعريف التعايش.","misconceptions":["الفهرس لا يحمل العنوان المصحح أصلًا، فلا شيء يعود","","النسخ في اتجاه واحد يترك التصحيح في المحور ولا يصل إلى النظامين","يمنع الإدخال في النظامين، والموقف يشترط بقاءه"],"lo":["LO1"]},{"id":"style-scenario-d-q1","slide":"style-scenario-d","type":"single","prompt":"جهة تستبدل أنظمة المشتريات الثلاثة بنظام واحد. قرر المالك أن تسجيل المورد وتعديله يتمان في وحدة واحدة، والأنظمة الأخرى تقرأ منها فقط.","options":[{"key":"أ","text":"التوحيد: تُنسخ السجلات من الأنظمة إلى المحور"},{"key":"ب","text":"التعايش: مزامنة مع الأنظمة في الاتجاهين"},{"key":"ج","text":"السجل المرجعي: فهرس بالمعرفات يشير إلى الأنظمة الثلاثة"},{"key":"د","text":"المركزي: المحور هو المصدر الوحيد"}],"correct":[3],"explanation":"الإنشاء والتعديل في مكان واحد، والبقية تقرأ: هذا المحور المركزي.","misconceptions":["يترك المصادر تنشئ السجلات، والقرار نقل الإنشاء إلى وحدة واحدة","يزامن مع أنظمة لم تعد تُنشئ شيئًا، فلا مزامنة تلزم","الفهرس لا يكفي حين يصبح المحور مكان الإنشاء والتعديل",""],"lo":["LO1"]},{"id":"check-matching-q1","slide":"check-matching","type":"single","prompt":"في سجل الجهات الشريكة، الاستدعاء على الأزواج العربية الإنجليزية 31% وعلى الأزواج العربية 88%. الدقة فوق 95% في الصنفين. ماذا تغيّر أولًا؟","options":[{"key":"أ","text":"خفض عتبة الدمج من 0.9 إلى 0.6"},{"key":"ب","text":"تشغيل توحيد الهمزة والتاء المربوطة"},{"key":"ج","text":"إضافة المفتاح العابر للغتين إلى التكتيل"},{"key":"د","text":"قاعدة حتمية تدمج كل زوج يتفق في الحرف الأول من الاسم"}],"correct":[2],"explanation":"الاسمان بكتابتين لا يلتقيان في مفتاح تكتيل، فلا يُقارنان أصلًا. المفتاح العابر يجمعهما.","misconceptions":["يخفض العتبة لرفع رقم ضعيف، والأزواج الفائتة لم تُقارن أصلًا فلا تصل إليها أي عتبة","يعالج الكتابة العربية، والضعف في الأزواج التي أحد طرفيها إنجليزي","","يرفع الأرقام بقاعدة لا يعرف أحد صحتها، والدمج الحتمي لا يُراجع"],"lo":["LO2"]},{"id":"check-survivorship-q1","slide":"check-survivorship","type":"single","prompt":"في سجل الجهات الشريكة يحدّث الباحثون الزائرون هاتف الجهة في كل زيارة، والمنح تنسخه مرة عند فتح الملف، والاتفاقيات نُقلت دفعة واحدة فتاريخ كل سجلاتها يوم النقل. أي قاعدة للهاتف؟","options":[{"key":"أ","text":"أولوية المصدر: المنح أولًا، لأنها الأوثق في الاسم"},{"key":"ب","text":"الأحدث، بتواريخ المصادر الثلاثة كما هي"},{"key":"ج","text":"الأكثر تكرارًا بين المصادر الثلاثة"},{"key":"د","text":"الأحدث، مع استبعاد تواريخ الاتفاقيات"}],"correct":[3],"explanation":"الهاتف يتغير، ومن يحدّثه الزائرون. تاريخ النقل لا يقول متى تغير الهاتف.","misconceptions":["يثق بالمصدر الأوثق في الاسم، والاسم والهاتف يتحقق منهما شخصان مختلفان","يترك تاريخ النقل يغلب، فيأخذ هاتفًا قديمًا من الاتفاقيات","الأكثر تكرارًا يكافئ النسخ القديمة إن تكررت، والهاتف الجديد في مصدر واحد",""],"lo":["LO3"]}],"ai":{"context":{"course":"../context/course.md","courseJs":"../context/course.js","day":"day1.md","llms":"../llms.txt"},"tasks":[],"tools":[]},"bridge":{"allowedOrigins":[]},"features":{},"strings":{}}</script>
+<script src="../_engine/academy.js"></script>
+</body>
+</html>

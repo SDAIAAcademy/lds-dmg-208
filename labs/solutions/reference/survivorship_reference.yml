@@ -1,0 +1,12 @@
+# Survivorship rules: a reference solution of lab 1.2.
+
+placeholders: ["0000000000"]
+
+attributes:
+  name_ar:    {rule: source_priority, order: [FIN, PMC, MCP]}
+  name_en:    {rule: source_priority, order: [MCP, FIN, PMC]}
+  cr_number:  {rule: source_priority, order: [FIN, MCP, PMC]}
+  vat_number: {rule: most_frequent, order: [FIN, MCP, PMC]}
+  city:       {rule: most_recent, ignore_dates_from: [PMC], order: [MCP, FIN, PMC]}
+  phone:      {rule: most_recent, ignore_dates_from: [PMC], order: [MCP, FIN, PMC]}
+  email:      {rule: source_priority, order: [MCP, PMC, FIN]}
