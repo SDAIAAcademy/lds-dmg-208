@@ -1,37 +1,82 @@
 <article class="lab" data-lab="1.2">
-  <div class="box goal">
-    <h3>الهدف</h3>
-    <p>REPLACE: في النهاية يستطيع المشاركون …</p>
-  </div>
-
-  <h2>ما تحتاجه</h2>
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
   <ul>
-    <li>REPLACE: الملفات والأداة والحساب التي يستخدمها المختبر</li>
+    <li>ملف قواعد استبقاء <code>my_survivorship.yml</code>: قاعدة لكل سمة من السمات السبع.</li>
+    <li>جدول السجلات الذهبية <code>out/golden_records.csv</code>، لكل قيمة فيه السجل الذي جاءت منه، وجدول الإسناد الترافقي <code>out/golden_xref.csv</code>، وتاريخ التغييرات <code>out/golden_history.csv</code>.</li>
+    <li>وثيقة قواعد من صفحة واحدة راجعها زميل.</li>
   </ul>
+</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الأولى <span class="min">15 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-    <div class="prompt" data-tool="ربط السجلات">REPLACE: الأمر الذي ينسخه المشاركون، والأجزاء التي يغيّرونها <span class="ph">ملوّنة</span></div>
-  </div>
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/golden/cluster_records.csv" download><b>golden/cluster_records.csv</b><span>سجلات 3,000 مورد في عناقيد اعتمدها المشرفون.</span></a>
+  <a href="files/golden/trust_matrix.csv" download><b>golden/trust_matrix.csv</b><span>ترتيب موثوقية كل مصدر لكل سمة (1 الأوثق)، وسبب الترتيب.</span></a>
+  <a href="files/golden/steward_notes.txt" download><b>golden/steward_notes.txt</b><span>ما يعرفه المشرفون عن كل مصدر.</span></a>
+  <a href="files/golden/verified_sample.csv" download><b>golden/verified_sample.csv</b><span>60 موردًا تحقق منهم المشرفون هاتفيًا.</span></a>
+  <a href="files/golden/survivorship_start.yml" download><b>golden/survivorship_start.yml</b><span>قواعد البداية: المالية أولًا في كل شيء.</span></a>
+  <a href="files/golden/cities.csv" download><b>golden/cities.csv</b><span>اسم كل مدينة بالعربية والإنجليزية، تستعمله الأداة لتوحيد المدينة.</span></a>
+</div>
+<p>يبدأ هذا المختبر من عناقيد معتمدة، لا من ناتج المختبر 1.1. تعمل بـ uv أو بالدفتر المعد (القسم 1.2).</p>
+<div class="callout tip"><b>المساعد مرشد فقط.</b> اسأله عن الفرق بين القواعد، ولا تلصق فيه سجلات الموردين.</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الثانية <span class="min">10 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-  </div>
+<h2>الخطوات</h2>
 
-  <div class="step stretch">
-    <h3>✱ إضافي</h3>
-    <p>REPLACE: توسعة لمن ينهي مبكرًا</p>
-  </div>
+<div class="step">
+  <h3>1 · الموثوقية والملاحظات <span class="min">10 د</span></h3>
+  <p>اقرأ مصفوفة الموثوقية وملاحظات المشرفين. اكتب لكل سمة جملة: من يكتب هذه القيمة في كل مصدر، ومن يتحقق منها؟</p>
+</div>
 
-  <h2>أسئلة تحقق</h2>
-  <ol class="checks">
-    <li>REPLACE: سؤال يبيّن أن المختبر نجح</li>
-  </ol>
+<div class="step">
+  <h3>2 · قواعد البداية <span class="min">10 د</span></h3>
+  <p>انسخ <code>files/golden/survivorship_start.yml</code> إلى <code>my_survivorship.yml</code> وشغّله. اقرأ لكل سمة: كم صحيحًا من الستين، وكم خطأ، وكم عنقودًا تختلف فيه المصادر.</p>
+  <pre class="code"><code>uv run kit/golden.py my_survivorship.yml</code></pre>
+</div>
 
-  <details class="instructor">
-    <summary>للمدرّب</summary>
-    <p>REPLACE: مفتاح الإجابة والفخاخ والأخطاء الشائعة</p>
-  </details>
+<div class="step">
+  <h3>3 · قاعدة لكل سمة <span class="min">30 د</span></h3>
+  <p>لكل سمة اختر <code>source_priority</code> بترتيب تبرّره، أو <code>most_recent</code>، أو <code>most_frequent</code>. ابدأ بالسمات الأكثر خطأ. أعد التشغيل بعد كل تغيير، ولا تغيّر قاعدتين معًا.</p>
+</div>
+
+<div class="step">
+  <h3>4 · التواريخ والتعادل <span class="min">15 د</span></h3>
+  <p>افتح <code>cluster_records.csv</code> ورتّبه بعمود <code>last_updated</code> لكل مصدر. هل يقول التاريخ في كل مصدر متى غيّر المورد بياناته؟ استعمل <code>ignore_dates_from</code> لما لا يقوله، و<code>placeholders</code> للقيم البديلة، واكتب <code>order</code> يحسم التعادل.</p>
+</div>
+
+<div class="step">
+  <h3>5 · الإسناد الترافقي والتاريخ <span class="min">15 د</span></h3>
+  <p>أعد التشغيل. افتح <code>out/golden_records.csv</code>: من أي سجل جاءت مدينة المورد الأول؟ افتح <code>out/golden_xref.csv</code>: كم سجلًا مصدريًا خلف السجل الذهبي نفسه؟ افتح <code>out/golden_history.csv</code>: ما الذي غيّره آخر تشغيل؟</p>
+</div>
+
+<div class="step">
+  <h3>6 · وثيقة القواعد <span class="min">15 د</span></h3>
+  <p>اكتب صفحة واحدة: لكل سمة القاعدة، وسببها من المصفوفة أو الملاحظات، والرقم على الستين، وما تبقى خطأ ولماذا. أضف من يغيّر هذه القواعد ومتى.</p>
+</div>
+
+<div class="step">
+  <h3>7 · مراجعة زميل <span class="min">10 د</span></h3>
+  <p>تبادل الوثيقة مع زميل. يراجع كل منكما بثلاثة أسئلة: هل لكل سمة قاعدة وسبب؟ هل في القواعد تاريخ لا يدل على تحديث؟ هل يعرف المالك مصدر كل قيمة؟ اكتب اسم المراجع وملاحظاته في آخر الوثيقة.</p>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب قاعدة لسمة لا تحملها ملفات المختبر، مثل رقم الحساب البنكي: من يملكها، ومن يغيّرها، ومن أي مصدر تؤخذ.</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>أي سمة لم تتحسن مهما غيّرت القاعدة، ولماذا؟</li>
+  <li>في أي سمة تفوقت <code>most_recent</code> على ترتيب المصادر، وما الشرط الذي جعلها تعمل؟</li>
+  <li>لو أُضيف مصدر رابع غدًا، ما الذي تغيّره في ملفك؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/survivorship_reference.yml</code> و<code>solutions/answer_key.md</code>. التحقق: <code>uv run solutions/check.py 1.2</code>.</li>
+    <li>على الستين: البداية 346 قيمة صحيحة من 420؛ «الأحدث» مع الثقة بتواريخ سجل المشاريع 367؛ المرجع 379. المدينة 46 ثم 55 ثم 58، والهاتف 38 ثم 50 ثم 51، والاسم الإنجليزي 30 في البداية و39 في المرجع.</li>
+    <li>الفخ: كل سجلات المشاريع تحمل يوم النقل في <code>last_updated</code>، فتغلب «الأحدث» بها قيمة قديمة. ومن يكتفي بترتيب المالية أولًا يأخذ مدينة وهاتفًا قديمين لكل من انتقل.</li>
+    <li>ما يبقى خطأ في المرجع (اسم إنجليزي كتبه المورد بصيغة غير صيغة مستنداته، أو مورد انتقل ولا يعرف انتقاله إلا سجل قديم) يُحال إلى قائمة الإشراف، ولا تُصلحه قاعدة.</li>
+  </ul>
+</details>
 </article>
