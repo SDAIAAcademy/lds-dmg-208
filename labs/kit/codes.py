@@ -176,6 +176,10 @@ def release(folder: str, version: str) -> None:
 
 
 def diff(a: str, b: str) -> None:
+    missing = [v for v in (a, b) if not (OUT / "releases" / v / "crosswalk.csv").exists()]
+    if missing:
+        sys.exit(f"no release {', '.join(missing)} in out/releases: run "
+                 f"'uv run kit/codes.py release my_codes <version>' for each version first")
     for list_id in ("regions", "activities"):
         old = {r["code"]: r for r in read_csv(OUT / "releases" / a / f"{list_id}.csv")}
         new = {r["code"]: r for r in read_csv(OUT / "releases" / b / f"{list_id}.csv")}
