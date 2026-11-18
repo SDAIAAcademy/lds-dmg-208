@@ -1,0 +1,51 @@
+# Matching rules: a reference solution of lab 1.1 (one defensible answer, not the only one).
+
+standardise:
+  arabic:
+    unify_alef: true
+    taa_marbuta: true
+    alef_maqsura: true
+    remove_diacritics: true
+    remove_tatweel: true
+  latin:
+    lowercase: true
+    unify_article: true
+  strip_punctuation: true
+  remove_words: [شركة, مؤسسة, المحدودة, ذ.م.م, ذات, مسؤولية, محدودة,
+                 co, company, est, establishment, ltd, llc, l.l.c]
+  key_remove_words: [للتجارة, trading, للمقاولات, contracting, للخدمات, الطبية, medical, services, للمستلزمات,
+                     supplies, للأجهزة, equipment, للأدوية, pharmaceuticals, المخبرية, laboratory, للتقنية, technology,
+                     للتشغيل, والصيانة, operation, and, maintenance, للتموين, catering, للنظافة, cleaning,
+                     للأثاث, المكتبي, office, furniture, للمطبوعات, printing, للاستشارات, الهندسية, engineering,
+                     consultants, للأمن, والسلامة, safety, security, للمواد, الكيميائية, chemicals, للنقل, transport,
+                     للسفر, والسياحة, travel, tourism]
+  cross_script_key: true
+
+numbers:
+  digits_only: true
+  phone_local: true
+  placeholders: ["0000000000"]
+
+blocking:
+  - [name_key]
+  - [alt_key]
+  - [cr_number]
+  - [phone]
+  - [email]
+
+deterministic:
+  - [cr_number, phone]
+
+compare:
+  name: [0.95, 0.88]
+  name_key: true
+  cr_number: true
+  vat_number: true
+  phone: true
+  email: true
+  city: key
+
+thresholds: [0.50, 0.95]
+
+hold_back:                   # a pair that disagrees on these never becomes an automatic match
+  - [cr_number]

@@ -1,0 +1,14 @@
+# Survivorship rules: the starting file of lab 1.2. Copy it to my_survivorship.yml and change the copy.
+# Rules: source_priority (with order), most_recent (with ignore_dates_from), most_frequent (tie: order).
+# Run:  uv run kit/golden.py my_survivorship.yml
+
+placeholders: []             # registration numbers that mean "unknown"
+
+attributes:
+  name_ar:    {rule: source_priority, order: [FIN, MCP, PMC]}
+  name_en:    {rule: source_priority, order: [FIN, MCP, PMC]}
+  cr_number:  {rule: source_priority, order: [FIN, MCP, PMC]}
+  vat_number: {rule: source_priority, order: [FIN, MCP, PMC]}
+  city:       {rule: source_priority, order: [FIN, MCP, PMC]}
+  phone:      {rule: source_priority, order: [FIN, MCP, PMC]}
+  email:      {rule: source_priority, order: [FIN, MCP, PMC]}

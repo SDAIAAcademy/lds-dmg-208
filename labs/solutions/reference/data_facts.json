@@ -1,0 +1,31 @@
+{
+ "rcp_records": 2400,
+ "records": 20000,
+ "suppliers": 12603,
+ "by_source": {
+  "FIN": 9668,
+  "MCP": 6296,
+  "PMC": 4036
+ },
+ "pmc_placeholder_cr": 272,
+ "fin_dmm": 466,
+ "mcp_13": 315,
+ "fin_a310": 1125,
+ "pairs": {
+  "ar-ar": [
+   104,
+   96
+  ],
+  "en-en": [
+   78,
+   72
+  ],
+  "ar-en": [
+   78,
+   72
+  ]
+ },
+ "golden_batch": 3000,
+ "golden_records": 6584,
+ "verified": 60
+}

@@ -1,0 +1,41 @@
+# Matching rules: the starting file of lab 1.1. Copy it to my_rules.yml and change the copy.
+# Every option is off until you turn it on. Run:  uv run kit/match.py my_rules.yml
+
+standardise:
+  arabic:
+    unify_alef: false        # أ إ آ  ->  ا
+    taa_marbuta: false       # ة at the end of a word  ->  ه
+    alef_maqsura: false      # ى at the end of a word  ->  ي
+    remove_diacritics: false # fatha, damma, kasra, shadda, sukun
+    remove_tatweel: false    # ـ
+  latin:
+    lowercase: true
+    unify_article: false     # Al-, El , AL  ->  al
+  strip_punctuation: false   # . , - & ( )
+  remove_words: []           # words that do not tell suppliers apart, in both scripts
+  cross_script_key: false    # a consonant key that lets an Arabic name meet its English form
+
+numbers:
+  digits_only: false         # 9912 345 678 and 9912-345678 become 9912345678
+  phone_local: false         # +966599... and 966 59 ... become 0599...
+  placeholders: []           # values that mean "unknown", such as 0000000000
+
+blocking:                    # each line: records that agree on all its columns are compared
+  - [name_std]
+  - [cr_number]
+
+deterministic:               # each line: records that agree on all its columns are a match
+  - [cr_number]
+
+compare:
+  name: [0.92, 0.80]         # name similarity levels (Jaro-Winkler), best of name and alternative name
+  name_key: false            # needs cross_script_key
+  cr_number: true
+  vat_number: false
+  phone: true
+  email: true
+  city: exact                # exact, or key (the same city written in Arabic or in English)
+
+thresholds: [0.50, 0.90]     # review band from the first, automatic match from the second
+
+hold_back: []                # each line: records that disagree on these columns wait for review

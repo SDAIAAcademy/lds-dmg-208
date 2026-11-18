@@ -34,3 +34,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 /*.log
+
+# Lab run outputs (the kit writes them; the run log is handed in from there)
+labs/out/

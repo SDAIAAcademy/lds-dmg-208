@@ -1,0 +1,20 @@
+# Stewardship workflow: the starting file of lab 2.2. Copy it to my_workflow.yml and complete it.
+# Test it on the twenty queued cases:  uv run kit/steward.py test my_workflow.yml
+
+roles:                       # role key: the person who holds it in the case
+  business_steward: ""
+  technical_steward: ""
+  data_owner: ""
+
+routes:                      # the first route whose conditions all hold decides who acts
+  - when: {case_type: match}
+    decides: business_steward
+    approves: ""             # a role, or leave empty
+    sla_days:                # working days from the moment the case enters the queue
+
+escalation:
+  after_days:                # a case still open after this many days goes to:
+  to: ""
+
+indicators:                  # at least four, each with a target
+  - {name: "", target: ""}
