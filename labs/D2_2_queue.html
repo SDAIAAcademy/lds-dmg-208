@@ -1,37 +1,80 @@
 <article class="lab" data-lab="2.2">
-  <div class="box goal">
-    <h3>الهدف</h3>
-    <p>REPLACE: في النهاية يستطيع المشاركون …</p>
-  </div>
-
-  <h2>ما تحتاجه</h2>
+<div class="box goal">
+  <h3>ستخرج من هذا المختبر بـ</h3>
   <ul>
-    <li>REPLACE: الملفات والأداة والحساب التي يستخدمها المختبر</li>
+    <li>سجل قرارات <code>my_decisions.csv</code> لعشرين حالة: قرارك الأول، واقتراح النموذج، وقرارك النهائي، ومواضع مخالفتك النموذج، والدليل على كل قرار.</li>
+    <li>مسار عمل <code>my_workflow.yml</code>: الأدوار، ومن يقرر ومن يعتمد كل نوع من الحالات، ومستويات الخدمة، والتصعيد، وأربعة مؤشرات على الأقل لكل منها هدف.</li>
+    <li>نتيجة اختبار المسار على الحالات العشرين نفسها.</li>
   </ul>
+</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الأولى <span class="min">15 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-    <div class="prompt" data-tool="ربط السجلات">REPLACE: الأمر الذي ينسخه المشاركون، والأجزاء التي يغيّرونها <span class="ph">ملوّنة</span></div>
-  </div>
+<h2>ما تحتاجه</h2>
+<div class="files">
+  <a href="files/queue/roles.txt" download><b>queue/roles.txt</b><span>ما يدخل القائمة، والقرارات الممكنة، والأدوار، وما رآه النموذج.</span></a>
+  <a href="files/queue/queue_cases.csv" download><b>queue/queue_cases.csv</b><span>الحالات العشرون كما يراها المشرف (أربع عشرة مطابقة وست رموز).</span></a>
+  <a href="files/queue/model_view.csv" download><b>queue/model_view.csv</b><span>ما أُرسل إلى النموذج: الأعمدة المصنفة «عامًا» فقط.</span></a>
+  <a href="files/queue/model_suggestions.csv" download><b>queue/model_suggestions.csv</b><span>اقتراحات النموذج. لا تفتحها قبل قرارك الأول.</span></a>
+  <a href="files/queue/decision_log_template.csv" download><b>queue/decision_log_template.csv</b><span>أعمدة سجل القرارات.</span></a>
+  <a href="files/queue/workflow_template.yml" download><b>queue/workflow_template.yml</b><span>هيكل مسار العمل، وفي تعليقاته شرح كل حقل.</span></a>
+</div>
+<p>تعمل بـ uv أو بالدفتر المعد (القسم 2.2). اقرأ <code>files/case_brief.txt</code> لسجل التصنيف.</p>
+<div class="callout warn"><b>قاعدة التصنيف.</b> الهاتف والبريد وسجل المورد الكامل «مقيد»: لا يدخل أي أداة ذكاء اصطناعي توليدي، ولو كانت مستضافة لدى الجهة. ما يصل إلى النموذج هو <code>model_view.csv</code> وحده. في هذا الإصدار كُتبت الاقتراحات سلفًا بدل ناتج نموذج حي.</div>
 
-  <div class="step">
-    <h3>REPLACE: الخطوة الثانية <span class="min">10 د</span></h3>
-    <p>REPLACE: ما يفعله المشارك ولماذا، في جملتين</p>
-  </div>
+<h2>الخطوات</h2>
 
-  <div class="step stretch">
-    <h3>✱ إضافي</h3>
-    <p>REPLACE: توسعة لمن ينهي مبكرًا</p>
-  </div>
+<div class="step">
+  <h3>1 · الأدوار وما يراه النموذج <span class="min">10 د</span></h3>
+  <p>اقرأ <code>roles.txt</code> و<code>case_brief.txt</code>. قارن أعمدة <code>queue_cases.csv</code> بأعمدة <code>model_view.csv</code>: ما الذي يراه المشرف ولا يراه النموذج؟ اكتب سطرًا: في أي نوع من الحالات يحتاج القرار ما لا يراه النموذج؟</p>
+  <pre class="code"><code>uv run kit/steward.py show</code></pre>
+</div>
 
-  <h2>أسئلة تحقق</h2>
-  <ol class="checks">
-    <li>REPLACE: سؤال يبيّن أن المختبر نجح</li>
-  </ol>
+<div class="step">
+  <h3>2 · الحالات 1 إلى 10 <span class="min">25 د</span></h3>
+  <p>انسخ <code>decision_log_template.csv</code> إلى <code>my_decisions.csv</code>. لكل حالة اكتب <code>first_decision</code> و<code>evidence</code> (الحقول التي تتفق والتي تختلف) قبل أن تقرأ الاقتراح. ثم شغّل <code>model</code>، وانقل الاقتراح إلى <code>model_suggestion</code>، واكتب <code>final_decision</code>، و<code>overruled_model</code> (yes أو no). إن لم تكفِ الأدلة فالقرار <code>refer</code>.</p>
+  <pre class="code"><code>uv run kit/steward.py model</code></pre>
+</div>
 
-  <details class="instructor">
-    <summary>للمدرّب</summary>
-    <p>REPLACE: مفتاح الإجابة والفخاخ والأخطاء الشائعة</p>
-  </details>
+<div class="step">
+  <h3>3 · الحالات 11 إلى 20 <span class="min">25 د</span></h3>
+  <p>بالطريقة نفسها. حالات الرموز ست، على الرمز الذي قُسّم في الإصدار 1.1: قرارها <code>GD-MED-CON</code> أو <code>GD-MED-DEV</code>. اكتب في <code>decided_by</code> الدور الذي يملك القرار، وفي <code>escalated_to</code> من يُرفع إليه إن لزم.</p>
+</div>
+
+<div class="step">
+  <h3>4 · تقرير القرارات <span class="min">10 د</span></h3>
+  <p>شغّل التقرير. كم مرة خالفت النموذج؟ وكم مرة غيّرت قرارك الأول بعد أن قرأت اقتراحه؟ اقرأ كل حالة تغيّر فيها قرارك: هل غيّره دليل، أم ثقة النموذج؟</p>
+  <pre class="code"><code>uv run kit/steward.py score my_decisions.csv</code></pre>
+</div>
+
+<div class="step">
+  <h3>5 · مسار العمل <span class="min">20 د</span></h3>
+  <p>انسخ <code>workflow_template.yml</code> إلى <code>my_workflow.yml</code>. اكتب الأدوار بأسماء الحالة، ثم مسارًا لكل نوع من الحالات: من يقرر، ومن يعتمد، وكم يوم عمل. رتّب المسارات من الأخص إلى الأعم. اكتب متى تُصعّد الحالة وإلى من.</p>
+</div>
+
+<div class="step">
+  <h3>6 · الاختبار والمؤشرات <span class="min">15 د</span></h3>
+  <p>اختبر المسار على الحالات العشرين. من يحمل أكثر الحالات؟ كم حالة متأخرة الآن؟ عدّل ما لا تستطيع الدفاع عنه، ثم اكتب أربعة مؤشرات على الأقل لكل منها هدف: مؤشران لجودة السجلات، ومؤشران لعمل القائمة.</p>
+  <pre class="code"><code>uv run kit/steward.py test my_workflow.yml</code></pre>
+</div>
+
+<div class="step stretch">
+  <h3>✱ تمرين إضافي</h3>
+  <p>اكتب الطلب الذي سترسله إلى نموذج مستضاف معتمد مع إحدى الحالات، وتحقق أن كل حقل فيه مصنف «عام».</p>
+</div>
+
+<h2>أسئلة تحقق</h2>
+<ol class="checks">
+  <li>في أي حالة أخطأ النموذج لأنه لم يرَ حقلًا «مقيدًا»؟ وكيف عرفت ذلك؟</li>
+  <li>أي حالة غيّرت فيها قرارك بعد قراءة الاقتراح، وهل كان التغيير صوابًا؟</li>
+  <li>لو زاد عدد الحالات أربعة أضعاف، أي سطر في مسارك يتغير أولًا؟</li>
+</ol>
+
+<details class="instructor">
+  <summary>للمدرّب</summary>
+  <ul>
+    <li>المرجع: <code>solutions/reference/decision_log_reference.csv</code> و<code>queue_key.csv</code> و<code>workflow_reference.yml</code>. التحقق: <code>uv run solutions/check.py 2.2</code>. تقرير المشارك مع المفتاح: <code>uv run kit/steward.py score my_decisions.csv --key solutions/reference/queue_key.csv</code>.</li>
+    <li>النموذج مصيب في 15 حالة من 20. أخطاؤه الخمسة: Q02 فصل موردًا واحدًا لأن الاسمين بلغتين، والدليل الحاسم البريد المشترك وهو «مقيد» لم يره (هذه إجابة سؤال التحقق الأول)؛ وQ03 وQ04 دمج شركتين شقيقتين لأن الكلمة التجارية واحدة، وتجاهل اختلاف رقم السجل والنشاط؛ وQ06 فصل موردًا واحدًا رقما سجله يختلفان بخطأ إدخال، وتجاهل الرقم الضريبي المشترك، وQ09 رمّز مورد مستلزمات أجهزةً.</li>
+    <li>المسار المرجعي: الرموز لمشرفة بيانات الأعمال باعتماد المالك وعشرة أيام؛ الأرقام المختلفة للمشرف الفني بخمسة أيام؛ بقية المطابقات لمشرفة الأعمال بخمسة أيام؛ التصعيد بعد أربعة أيام إلى المالك. الحمل 9 و11، والمتأخر 7 من 20.</li>
+    <li>راقب من يفتح الاقتراحات قبل قراره الأول: عمود <code>first_decision</code> المطابق للاقتراح في كل الحالات علامة على ذلك.</li>
+  </ul>
+</details>
 </article>
