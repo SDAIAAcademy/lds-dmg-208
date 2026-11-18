@@ -170,6 +170,22 @@ def capstone() -> None:
           f"(was {res['review_band']:,}); auto matches {res8['auto_matches']:,} (was {res['auto_matches']:,})")
     assert res["all@0.95"]["recall"] >= 0.85, res["all@0.95"]
     assert res8["review_band"] < res["review_band"], "a lower high threshold empties part of the review band"
+    # the fourth source code mapping: version 1.1 plus the RCP rows covers every code of the four systems
+    work = TMP / "capstone_codes"
+    shutil.rmtree(work, ignore_errors=True)
+    shutil.copytree(REF / "codes" / "v1.1", work)
+    rows = (REF / "capstone" / "rcp_crosswalk_rows.csv").read_text(encoding="utf-8").splitlines()[1:]
+    with (work / "crosswalk.csv").open("a", encoding="utf-8", newline=chr(10)) as f:
+        f.write(chr(10).join(rows) + chr(10))
+    cc = codes.check(str(work.relative_to(LABS)), quiet=True,
+                     sources=["files/codes/source_codes.csv", "files/capstone/rcp_source_codes.csv"])
+    assert cc["problems"] == 0 and cc["records_covered"] == cc["records"] == 44800, cc
+    print(f"  codes for the four systems: {cc['records_covered']:,} of {cc['records']:,} source codes covered")
+    rcp = read_csv(FILES / "capstone" / "rcp_records.csv")
+    labelled = sum(1 for r in rcp if r["activity_code"] == "Research equipment")
+    medical = sum(1 for r in rcp if r["activity_code"] == "Research equipment"
+                  and any(w in r["name"].lower() for w in ("medical", "الطبية", "الطبيه")))
+    print(f"  RCP 'Research equipment': {labelled} records, {medical} with a medical word in the name")
 
 
 LABS_RUN = {"1.1": lab_1_1, "1.2": lab_1_2, "2.1": lab_2_1, "2.2": lab_2_2, "capstone": capstone}

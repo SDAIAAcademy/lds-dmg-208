@@ -2,6 +2,7 @@
 
     uv run kit/codes.py profile                      # the codes each system uses, with record counts
     uv run kit/codes.py check codes                  # checks the lists, the crosswalk and the change log
+    uv run kit/codes.py check codes --sources files/codes/source_codes.csv files/capstone/rcp_source_codes.csv
     uv run kit/codes.py release codes 1.0            # freezes the folder as version 1.0 (out/releases/)
     uv run kit/codes.py diff 1.0 1.1                 # what changed between two released versions
     uv run kit/codes.py impact codes                 # records whose code changes with the latest version
@@ -46,7 +47,7 @@ def load(folder: str) -> dict:
     return {n[:-4]: read_csv(f / n) for n in need}
 
 
-def check(folder: str, quiet: bool = False) -> dict:
+def check(folder: str, quiet: bool = False, sources: list[str] | None = None) -> dict:
     d = load(folder)
     problems: list[str] = []
     lists = {r["list_id"]: r for r in d["lists"]}
@@ -101,7 +102,7 @@ def check(folder: str, quiet: bool = False) -> dict:
                 problems.append(f"{list_id}.csv: {n} active codes are named {name}")
         codes[list_id] = {"all": set(seen), "active": set(active)}
 
-    src = read_csv(FILES / "codes" / "source_codes.csv")
+    src = [r for p in (sources or [str(FILES / "codes" / "source_codes.csv")]) for r in read_csv(resolve(p))]
     xw = {(r["system"], r["code_type"], r["source_code"]): r for r in d["crosswalk"]}
     covered = total = 0
     for s in src:
@@ -230,8 +231,11 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("profile")
-    for name in ("check", "impact"):
-        sub.add_parser(name).add_argument("folder")
+    sub.add_parser("impact").add_argument("folder")
+    c = sub.add_parser("check")
+    c.add_argument("folder")
+    c.add_argument("--sources", nargs="+", help="source code files to cover (default: files/codes/source_codes.csv); "
+                   "add files/capstone/rcp_source_codes.csv for the fourth source")
     r = sub.add_parser("release")
     r.add_argument("folder")
     r.add_argument("version")
@@ -242,7 +246,7 @@ def main() -> None:
     if a.cmd == "profile":
         profile()
     elif a.cmd == "check":
-        sys.exit(0 if check(a.folder)["problems"] == 0 else 1)
+        sys.exit(0 if check(a.folder, sources=a.sources)["problems"] == 0 else 1)
     elif a.cmd == "release":
         release(a.folder, a.version)
     elif a.cmd == "diff":

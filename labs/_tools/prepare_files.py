@@ -887,7 +887,7 @@ def main() -> None:
         "golden_batch": len(batch), "golden_records": len(clusters), "verified": len(vrows),
     }
     REF.mkdir(parents=True, exist_ok=True)
-    (REF / "data_facts.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    (REF / "data_facts.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline=chr(10))
     print(json.dumps(meta, ensure_ascii=False))
 
 
