@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -180,12 +181,14 @@ def capstone() -> None:
     cc = codes.check(str(work.relative_to(LABS)), quiet=True,
                      sources=["files/codes/source_codes.csv", "files/capstone/rcp_source_codes.csv"])
     assert cc["problems"] == 0 and cc["records_covered"] == cc["records"] == 44800, cc
-    print(f"  codes for the four systems: {cc['records_covered']:,} of {cc['records']:,} source codes covered")
+    print(f"  codes for the four systems: {cc['records_covered']:,} of {cc['records']:,} code values covered (a region and an activity for each record)")
     rcp = read_csv(FILES / "capstone" / "rcp_records.csv")
     labelled = sum(1 for r in rcp if r["activity_code"] == "Research equipment")
+    plain = lambda s: re.sub("[\u064b-\u0652\u0640]", "", s.lower())   # without diacritics and tatweel
     medical = sum(1 for r in rcp if r["activity_code"] == "Research equipment"
-                  and any(w in r["name"].lower() for w in ("medical", "الطبية", "الطبيه")))
-    print(f"  RCP 'Research equipment': {labelled} records, {medical} with a medical word in the name")
+                  and any(w in plain(r["name"]) for w in ("medical", "الطبية", "الطبيه")))
+    assert medical == labelled == 231, (medical, labelled)
+    print(f"  RCP 'Research equipment': {labelled} records, {medical} of them with a medical word in the name")
 
 
 LABS_RUN = {"1.1": lab_1_1, "1.2": lab_1_2, "2.1": lab_2_1, "2.2": lab_2_2, "capstone": capstone}

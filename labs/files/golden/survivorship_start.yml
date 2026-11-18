@@ -1,8 +1,8 @@
-# Survivorship rules: the starting file of lab 1.2. Copy it to my_survivorship.yml and change the copy.
-# Rules: source_priority (with order), most_recent (with ignore_dates_from), most_frequent (tie: order).
-# Run:  uv run kit/golden.py my_survivorship.yml
+# قواعد الاستبقاء: ملف البداية في المختبر 1.2. انسخه إلى my_survivorship.yml وغيّر النسخة.
+# القواعد: source_priority (مع order)، وmost_recent (مع ignore_dates_from)، وmost_frequent (والتعادل يحسمه order).
+# التشغيل:  uv run kit/golden.py my_survivorship.yml
 
-placeholders: []             # registration numbers that mean "unknown"
+placeholders: []             # أرقام سجل تعني «غير معروف»
 
 attributes:
   name_ar:    {rule: source_priority, order: [FIN, MCP, PMC]}

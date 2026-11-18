@@ -41,7 +41,7 @@ uv run solutions/check.py
 
 ## البيانات
 
-كل الملفات اصطناعية يولّدها `_tools/prepare_files.py` (مكتبة Python القياسية فقط، بذرة ثابتة 208)، ثم `_tools/prepare_queue.py` لحالات القائمة. الاستثناء `files/codes/iso_3166_2_sa.csv`: رموز المناطق الثلاث عشرة وأسماؤها حقائق عامة من جدول [ISO 3166-2:SA](https://en.wikipedia.org/wiki/ISO_3166-2:SA). لإعادة التوليد:
+كل الملفات اصطناعية يولّدها `_tools/prepare_files.py` (مكتبة Python القياسية فقط، بذرة ثابتة 208)، ثم `_tools/prepare_queue.py` لحالات القائمة. الاستثناء `files/codes/iso_3166_2_sa.csv`: رموز المناطق الثلاث عشرة في المعيار ISO 3166-2:SA وأسماؤها المختصرة، وهي حقائق عامة تحققنا منها في [ويكي بيانات](https://www.wikidata.org/wiki/Property:P300) (الخاصية P300، بيانات مفتوحة CC0). لإعادة التوليد:
 
 ```
 uv run --no-project _tools/prepare_files.py

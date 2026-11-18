@@ -566,7 +566,7 @@ ACT_REF = [  # code, Arabic, English, definition; GD-MED is v1.0 only, the two G
     ("SV-TRV", "سفر وسياحة", "Travel", "حجوزات السفر والإقامة للمهمات والمؤتمرات"),
     ("WK-CON", "مقاولات إنشائية", "Construction works", "تشييد المباني والطرق والبنية التحتية وترميمها"),
 ]
-ISO_SA = [  # ISO 3166-2:SA codes, with the names listed beside them for reference; SA-13 is not used
+ISO_SA = [  # ISO 3166-2:SA codes as Wikidata records them (property P300, CC0), with short names; SA-13 is not used
     ("SA-01", "الرياض", "Riyadh"), ("SA-02", "مكة", "Mecca"), ("SA-03", "المدينة المنورة", "Medina"),
     ("SA-04", "الشرقية", "Eastern"), ("SA-05", "القصيم", "Qassim"), ("SA-06", "حائل", "Ha'il"),
     ("SA-07", "تبوك", "Tabuk"), ("SA-08", "الحدود الشمالية", "Northern Borders"), ("SA-09", "جازان", "Jizan"),

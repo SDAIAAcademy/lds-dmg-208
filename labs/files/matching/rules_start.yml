@@ -1,41 +1,42 @@
-# Matching rules: the starting file of lab 1.1. Copy it to my_rules.yml and change the copy.
-# Every option is off until you turn it on. Run:  uv run kit/match.py my_rules.yml
+# قواعد المطابقة: ملف البداية في المختبر 1.1. انسخه إلى my_rules.yml وغيّر النسخة.
+# كل خيار معطّل حتى تشغّله. التشغيل:  uv run kit/match.py my_rules.yml
 
 standardise:
   arabic:
-    unify_alef: false        # أ إ آ  ->  ا
-    taa_marbuta: false       # ة at the end of a word  ->  ه
-    alef_maqsura: false      # ى at the end of a word  ->  ي
-    remove_diacritics: false # fatha, damma, kasra, shadda, sukun
-    remove_tatweel: false    # ـ
+    unify_alef: false        # أ إ آ  تصبح  ا
+    taa_marbuta: false       # ة في آخر الكلمة تصبح ه
+    alef_maqsura: false      # ى في آخر الكلمة تصبح ي
+    remove_diacritics: false # حذف الحركات: الفتحة والضمة والكسرة والشدة والسكون
+    remove_tatweel: false    # حذف التطويل ـ
   latin:
-    lowercase: true
-    unify_article: false     # Al-, El , AL  ->  al
-  strip_punctuation: false   # . , - & ( )
-  remove_words: []           # words that do not tell suppliers apart, in both scripts
-  cross_script_key: false    # a consonant key that lets an Arabic name meet its English form
+    lowercase: true          # الحروف اللاتينية كلها صغيرة
+    unify_article: false     # Al- وEl وAL تصبح al
+  strip_punctuation: false   # حذف النقاط والفواصل والشرطات و& والأقواس
+  remove_words: []           # كلمات لا تميّز موردًا من آخر، بالعربية والإنجليزية: تُحذف من الاسم قبل المقارنة
+  key_remove_words: []       # كلمات تُحذف من المفتاح العابر للغتين وحده، وتبقى في الاسم
+  cross_script_key: false    # مفتاح من الحروف الساكنة يلتقي فيه الاسم العربي بصيغته الإنجليزية
 
 numbers:
-  digits_only: false         # 9912 345 678 and 9912-345678 become 9912345678
-  phone_local: false         # +966599... and 966 59 ... become 0599...
-  placeholders: []           # values that mean "unknown", such as 0000000000
+  digits_only: false         # 9912 345 678 و9912-345678 تصبحان 9912345678
+  phone_local: false         # +966599... و966 59 ... تصبحان 0599...
+  placeholders: []           # قيم تعني «غير معروف» في رقم السجل؛ ابحث عنها في الملف بنفسك
 
-blocking:                    # each line: records that agree on all its columns are compared
+blocking:                    # كل سطر: السجلات التي تتفق في كل أعمدته تُقارن
   - [name_std]
   - [cr_number]
 
-deterministic:               # each line: records that agree on all its columns are a match
+deterministic:               # كل سطر: السجلات التي تتفق في كل أعمدته مطابقة دون درجة
   - [cr_number]
 
 compare:
-  name: [0.92, 0.80]         # name similarity levels (Jaro-Winkler), best of name and alternative name
-  name_key: false            # needs cross_script_key
+  name: [0.92, 0.80]         # مستويا تشابه الاسم (Jaro-Winkler)، الأفضل بين الاسم والاسم البديل
+  name_key: false            # يحتاج cross_script_key
   cr_number: true
   vat_number: false
   phone: true
   email: true
-  city: exact                # exact, or key (the same city written in Arabic or in English)
+  city: exact                # exact، أو key (المدينة نفسها مكتوبة بالعربية أو بالإنجليزية)
 
-thresholds: [0.50, 0.90]     # review band from the first, automatic match from the second
+thresholds: [0.50, 0.90]     # الأولى بداية قائمة المراجعة، والثانية الدمج الآلي
 
-hold_back: []                # each line: records that disagree on these columns wait for review
+hold_back: []                # كل سطر: السجلات التي تختلف في هذه الأعمدة تنتظر المراجعة ولا تُدمج آليًا

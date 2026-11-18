@@ -53,13 +53,22 @@ def file_hash(path: str | Path) -> str:
     return hashlib.sha256(resolve(path).read_bytes()).hexdigest()[:12]
 
 
+def shown(path: str | Path) -> str:
+    """A path as the run log records it: relative to labs/, so no folder of the computer is handed in."""
+    p = resolve(path).resolve()
+    try:
+        return p.relative_to(LABS).as_posix()
+    except ValueError:
+        return p.name
+
+
 def log_run(tool: str, inputs: list[str | Path], result: dict) -> None:
     """Append one line to out/run_log.jsonl: the evidence that a participant ran the kit."""
     OUT.mkdir(exist_ok=True)
     line = {
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "tool": tool,
-        "inputs": {str(Path(i).as_posix()): file_hash(i) for i in inputs},
+        "inputs": {shown(i): file_hash(i) for i in inputs},
         "result": result,
     }
     with (OUT / "run_log.jsonl").open("a", encoding="utf-8") as f:

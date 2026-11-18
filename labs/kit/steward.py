@@ -117,6 +117,8 @@ def test(path: str, quiet: bool = False) -> dict:
     esc = wf.get("escalation") or {}
     if esc and esc.get("to") not in roles:
         problems.append("escalation: to names a role that is not in roles")
+    if esc and not isinstance(esc.get("after_days"), (int, float)):
+        problems.append("escalation: give after_days as a number of days")
     ind = wf.get("indicators") or []
     if len(ind) < 4:
         problems.append("indicators: name at least four, each with a target")
@@ -131,10 +133,14 @@ def test(path: str, quiet: bool = False) -> dict:
             unrouted += 1
             rows.append((c["case_id"], c["case_type"], "no route", "", ""))
             continue
-        left = float(route.get("sla_days", 0)) - int(c["days_waiting"])
+        sla = route.get("sla_days")
+        sla = float(sla) if isinstance(sla, (int, float)) else 0.0   # an empty sla_days is listed under FIX
+        left = sla - int(c["days_waiting"])
         who = route.get("decides")
         load[who] = load.get(who, 0) + 1
-        status = "late" if left < 0 else ("escalate" if esc and int(c["days_waiting"]) >= esc.get("after_days", 99)
+        after = esc.get("after_days") if esc else None
+        after = after if isinstance(after, (int, float)) else None
+        status = "late" if left < 0 else ("escalate" if after is not None and int(c["days_waiting"]) >= after
                                           else "on time")
         late += left < 0
         rows.append((c["case_id"], c["case_type"], roles.get(who, who), status, f"{left:+.0f} days"))
